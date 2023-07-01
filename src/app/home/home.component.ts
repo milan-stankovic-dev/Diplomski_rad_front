@@ -6,10 +6,11 @@ import { Component } from '@angular/core';
     <section class="hero is-info is-bold is-fullheight">
   <div class="hero-body">
     <div class="container has-text-centered">
-    <!-- <img src="../assets/image/background.jpg" alt="Couldn't load image"> -->
-    <p class="title">
-      Home page!
-    </p>
+    
+    <!-- <p class="title">
+      This is the home page of this website. To use other functionalities of this website,
+      please refer to the navigation menu above.
+    </p> -->
     
   </div>
   </div>
