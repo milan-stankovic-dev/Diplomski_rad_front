@@ -13,19 +13,19 @@ const routes: Routes = [
      pathMatch: 'full'
     },
     {
-     path: ':insert',
+     path: 'insert',
      component: ProductInsertComponent
     },
     {
-      path: ':update',
+      path: 'update',
       component: ProductUpdateComponent
     },
     {
-      path: ':delete',
+      path: 'delete',
       component: ProductDeleteComponent
     },
     {
-      path: ':search',
+      path: 'search',
       component: ProductSearchComponent
     },
     
