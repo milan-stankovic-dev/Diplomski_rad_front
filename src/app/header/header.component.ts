@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     <div class = 'navbar is-dark'>
       <div class="navbar-brand">
         <a class="navbar-item">
-          MY LOGO GOES HERE
+          <img src="../assets/image/logo.PNG" height="100px" width="50px" alt="Could not load">
         </a>
       </div>
     </div>
@@ -14,6 +14,4 @@ import { Component } from '@angular/core';
   styles: [
   ]
 })
-export class HeaderComponent {
-
-}
+export class HeaderComponent { }
