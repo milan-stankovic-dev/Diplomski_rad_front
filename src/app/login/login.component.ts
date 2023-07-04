@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { User } from '../domain/User';
 
 @Component({
   selector: 'app-login',
@@ -58,10 +60,25 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  constructor(){}
+  constructor(private http: HttpClient){}
 
   attemptLogin(){
-    
+    if(this.username === '' || this.password === ''){
+      alert("All input fields are required")
+      return;
+    }
+    let userForLogin : User = {
+      id : 0,
+      name : '',
+      lastname : '',
+      role: 'USER',
+      username : this.username,
+      password : this.password
+    }
     alert("Submit attempted.")
+    this.http.post('http://localhost:8080/api/v1/user/login', userForLogin)
+    .subscribe(data=>{
+      console.log(data)
+    })
   }
 }
