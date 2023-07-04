@@ -1,0 +1,54 @@
+<div class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Create New Product</p>
+        <button class="delete" aria-label="close" (click)="closeModal()"></button>
+      </header>
+      <section class="modal-card-body">
+        <form (ngSubmit)="createProduct()" [formGroup]="productForm">
+          <div class="field">
+            <label class="label">Product Name</label>
+            <div class="control">
+              <input class="input" type="text" formControlName="productName" required>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Weight</label>
+            <div class="control">
+              <input class="input" type="number" formControlName="weight" required>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Fragile</label>
+            <div class="control">
+              <input class="input" type="checkbox" formControlName="fragile" [value]="true">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Amount</label>
+            <div class="control">
+              <input class="input" type="number" formControlName="amount" required>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Product Type</label>
+            <div class="control">
+              <input class="input" type="text" formControlName="productType" required>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Price</label>
+            <div class="control">
+              <input class="input" type="number" formControlName="price" required>
+            </div>
+          </div>
+      
+      <footer class="modal-card-foot">
+        <button class="button is-danger" type="button" (click)="closeModal()">Cancel</button>
+        <button class="button is-success" type="submit" [disabled]="productForm.invalid">Insert</button>
+      </footer>
+      </form>
+    </section>
+    </div>
+  </div>

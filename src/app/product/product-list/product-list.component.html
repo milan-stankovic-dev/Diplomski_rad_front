@@ -1,0 +1,42 @@
+<h1 class="title">Product data:</h1>
+<div class="search-container">
+  <label for="search" class="search-label">Search:</label>
+  <br>
+  <input type="text" id="search" [(ngModel)]="searchTerm" (input)="filterProducts()" class="search-input">
+</div>
+<div class = "table-div">
+<table class="table is-bordered is-hoverable is-fullwidth custom-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Product Name</th>
+      <th>Weight</th>
+      <th>Fragile</th>
+      <th>Amount</th>
+      <th>Product Type</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of filteredProducts" (click)="selectProduct(product)">
+      <td>{{ product.id }}</td>
+      <td>{{ product.productName }}</td>
+      <td>{{ product.weight }}</td>
+      <td>{{ product.fragile }}</td>
+      <td>{{ product.amount }}</td>
+      <td>{{ product.type }}</td>
+      <td>{{ product.price }}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="button-container">
+  <button class="delete-button">Delete</button>
+  <button class="insert-button" (click)="openModal()">Insert</button>
+  <button class="update-button">Update</button>
+</div>
+<app-product-insert-modal
+  *ngIf="isModalOpen"
+  (insertProduct)="createProduct($event)"
+  (close)="closeModal()"
+></app-product-insert-modal>

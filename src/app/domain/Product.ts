@@ -1,9 +1,9 @@
 export interface Product{
     id : number
-    name : string
+    productName : string
     weight : number
     fragile : boolean
     amount : number
-    productType : string
+    type : string
     price : number
 }
