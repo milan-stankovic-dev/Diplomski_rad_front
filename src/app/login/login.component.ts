@@ -67,6 +67,7 @@ export class LoginComponent {
   constructor(private service: AuthService){}
 
   attemptLogin(){
+    
     if(this.username === '' || this.password === ''){
       alert("All input fields are required")
       return;
@@ -80,8 +81,9 @@ export class LoginComponent {
       username : this.username,
       password : this.password
     }
-    
+    console.log("Sending a request...")
     let apiResponse = this.service.login(this.username, this.password).subscribe(
+      
       response => {
         console.log(response)
       },

@@ -19,7 +19,7 @@ import { AuthService } from '../service/auth.service';
         <a class = "navbar-item">Bill of lading</a>
         <a class = "navbar-item">About</a>          
       </div>
-      <div class = "navbar-end">
+      <div class = "navbar-end"*ngIf = "!(authService.loggedInStatus | async)">
         <a class = "navbar-item" routerLink = "/login">Login</a>
         <a class = "navbar-item" routerLink = "/register">Register</a>
     </div>
