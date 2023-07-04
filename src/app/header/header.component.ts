@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,7 @@ import { Component } from '@angular/core';
         </a>
       </div>
       <div class = "navbar-menu">
-      <div class = "navbar-start">
+      <div class = "navbar-start" *ngIf = "authService.loggedInStatus | async">
         <a class = "navbar-item" routerLink = "/">Home</a>
         <a class = "navbar-item" routerLink = "/product">Product</a>  
         <a class = "navbar-item" routerLink = "/report">Report</a>
@@ -35,4 +36,8 @@ import { Component } from '@angular/core';
   `
   ]
 })
-export class HeaderComponent { }
+export class HeaderComponent {
+  constructor(public authService: AuthService){
+
+  }
+}

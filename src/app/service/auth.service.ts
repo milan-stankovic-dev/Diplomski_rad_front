@@ -1,27 +1,36 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { AuthRequest } from '../userUtils/auth-request';
+import { AuthResponse } from '../userUtils/auth-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly url : string = 'http://localhost:8080/api/v1'
+  private readonly url: string = 'http://localhost:8080/api/v1';
+  private loggedInStatusSubject$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) {}
 
+  public get loggedInStatus(): Observable<boolean> {
+    return this.loggedInStatusSubject$.asObservable();
   }
 
-  user$ = this.http.get<any>(`${this.url}/user/login`)
-  .pipe(
-    tap(console.log),
-    catchError(this.handleException)
-  )
+  login(username: string, password: string): Observable<AuthResponse> {
+    const authRequest: AuthRequest = { username, password };
 
-
-
-  handleException(handleError : any) : Observable<never>{
-    return throwError("Error exists");
+    return this.http.post<AuthResponse>(`${this.url}/user/login`, authRequest).pipe(
+      tap((response: AuthResponse) => {
+        const token = response.token;
+        localStorage.setItem('token', token);
+        this.loggedInStatusSubject$.next(true);
+      }),
+      catchError((error) => {
+        console.error(error);
+        return throwError(error);
+      })
+    );
   }
 }

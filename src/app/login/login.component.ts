@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { User } from '../domain/User';
+import { AuthService } from '../service/auth.service';
+import { AuthRequest } from '../userUtils/auth-request';
+import { AuthResponse } from '../userUtils/auth-response';
+import { Observable} from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -60,13 +64,14 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  constructor(private http: HttpClient){}
+  constructor(private service: AuthService){}
 
   attemptLogin(){
     if(this.username === '' || this.password === ''){
       alert("All input fields are required")
       return;
     }
+
     let userForLogin : User = {
       id : 0,
       name : '',
@@ -75,10 +80,15 @@ export class LoginComponent {
       username : this.username,
       password : this.password
     }
-    alert("Submit attempted.")
-    this.http.post('http://localhost:8080/api/v1/user/login', userForLogin)
-    .subscribe(data=>{
-      console.log(data)
-    })
+    
+    let apiResponse = this.service.login(this.username, this.password).subscribe(
+      response => {
+        console.log(response)
+      },
+      error => {
+        alert("User not found. Try again.")
+      }
+    )
+    
   }
 }
