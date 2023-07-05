@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   selector: 'app-product-insert-modal',
   templateUrl: './product-insert-modal.component.html',
   styleUrls: ['./product-insert-modal.component.css'],
-  // standalone:true
 })
 export class ProductInsertModalComponent {
   @Output() insertProduct = new EventEmitter<any>();
@@ -31,7 +30,11 @@ export class ProductInsertModalComponent {
     }
   }
 
+  openModal(): void {
+    console.log('Modal opened');
+  }
+
   closeModal(): void {
-    this.close.emit();
+    console.log('Modal closed');
   }
 }

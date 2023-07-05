@@ -18,4 +18,8 @@ export class ProductService {
   getAllProductsNamed(name : string):Observable<Product[]>{
     return this.http.get<Product[]>(`${this.apiUrl}/all/named/${name}`)
   }
+
+  insertProduct(product: Product):Observable<Product>{
+    return this.http.post<Product>(`${this.apiUrl}`, product)
+  }
 }
