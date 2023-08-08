@@ -25,6 +25,7 @@ import { Observable} from 'rxjs';
             <label  for="username" class = "label">Username:</label>
             <input type = "text"
              name = "username" class = "input"
+              (input)="clearError()"
               [(ngModel)] = "username"
               #usernameInput = "ngModel"
               required>
@@ -37,6 +38,7 @@ import { Observable} from 'rxjs';
             <input type = "password"
             name = "password"
             class = "input"
+            (input)="clearError()"
             [(ngModel)] = "password"
             #passwordInput = "ngModel"
             required>
@@ -52,17 +54,32 @@ import { Observable} from 'rxjs';
 
       </div>
     </section>
+    <div *ngIf="errorMessage!==''" class = "notification is-danger">
+      {{errorMessage}}
+    </div>
   `,
   styles: [`
   .help{
     color:red !important
   }
+  .notification{
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 100px
+  }
   `
   ]
 })
 export class LoginComponent {
+
+clearError() {
+  this.errorMessage = ''
+}
+
   username: string = '';
   password: string = '';
+  errorMessage: string  = ''
 
   constructor(private service: AuthService){}
 
@@ -88,9 +105,12 @@ export class LoginComponent {
         console.log(response)
       },
       error => {
-        alert("User not found. Try again.")
+        // alert(error.error)
+        console.log(error.error)
+        this.errorMessage = error.error
+        
       }
     )
-    
+    // apiResponse.unsubscribe()
   }
 }
