@@ -7,6 +7,7 @@ import { Product } from '../domain/Product';
   providedIn: 'root'
 })
 export class ProductService {
+  
   private readonly apiUrl = 'http://localhost:8080/api/v1/product'
 
   constructor(private http:HttpClient) { }
@@ -21,5 +22,13 @@ export class ProductService {
 
   insertProduct(product: Product):Observable<Product>{
     return this.http.post<Product>(`${this.apiUrl}`, product)
+  }
+
+  deleteProduct(id: number | null):Observable<any>{
+    return this.http.delete<Product>(`${this.apiUrl}/${id}`)
+  }
+
+  updateProduct(product: Product | null) {
+    return this.http.put<Product>(`${this.apiUrl}/${product?.id}`, product)
   }
 }

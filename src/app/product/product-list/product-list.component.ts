@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, ViewChild } from '@angular/core';
 import { Product } from 'src/app/domain/Product';
 import { ProductService } from 'src/app/service/product.service';
 import { ProductType } from '../../domain/ProductType';
@@ -14,6 +14,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 export class ProductListComponent implements OnInit {
   product: any = {}
   isModalOpen: boolean = false
+  isModalDeleteOpen: boolean = false
+  isModalUpdateOpen: boolean = false
   products: Product[] = []
   filteredProducts: Product[] = []
   selectedProduct: Product | null = null
@@ -21,7 +23,7 @@ export class ProductListComponent implements OnInit {
   productTypes: string[] = Object.values(ProductType)
 
   insertForm : FormGroup = new FormGroup({})
-
+  @Output() updatedProduct: Product;
 
   constructor(private productService: ProductService,
               private formBuilder: FormBuilder) {}
@@ -79,6 +81,20 @@ export class ProductListComponent implements OnInit {
     this.isModalOpen = true;
   }
 
+  alterModalDelete():void{
+    if(this.isModalDeleteOpen)
+    this.isModalDeleteOpen = false 
+    else 
+    this.isModalDeleteOpen = true
+  }
+
+  alterModalUpdate():void{
+    if(this.isModalUpdateOpen)
+    this.isModalUpdateOpen = false
+    else 
+    this.isModalUpdateOpen = true
+  }
+
   selectProduct(product: Product): void {
     this.selectedProduct = product;
     console.log('Selected Product:', this.selectedProduct);
@@ -99,16 +115,47 @@ export class ProductListComponent implements OnInit {
     .subscribe(
       response => {
         alert("Saved in database!")
+        this.productService.getAllProducts().subscribe((products) => {
+          console.log(products);
+          this.products = products;
+          this.filteredProducts = products;
+        });
+        this.alterModal()
       }
     )
-    this.productService.getAllProducts().subscribe((products) => {
-      console.log(products);
-      this.products = products;
-      this.filteredProducts = products;
-    });
-    this.alterModal()
-
-
   }
+
+  deleteProduct(product: Product| null) {
+    if(product === null){
+      this.alterModalDelete();
+      alert("Please select a product for deletion.")
+      return;
+    }
+    this.productService.deleteProduct(this.selectedProduct === null? null : this.selectedProduct.id)
+    .subscribe(
+      response=>{
+        alert("Deleted product")
+        this.productService.getAllProducts().subscribe((products) => {
+          console.log(products);
+          this.products = products;
+          this.filteredProducts = products;
+        });
+        this.alterModalDelete()
+      },
+      error=>{
+        alert(error.error)
+      }
+    )
+    }
+
+
+  updateSelectedProduct(selectedProduct: Product|null):void {
+  if(selectedProduct === null){
+    alert("Please select a product to update!")
+    return;
+  } 
+  this.alterModalUpdate()
+  
+}
 
 }

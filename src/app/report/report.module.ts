@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ReportRoutingModule } from './report-routing.module';
 import { ReportCreateComponent } from './report-create/report-create.component';
 import { ReportSearchComponent } from './report-search/report-search.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { ReportSearchComponent } from './report-search/report-search.component';
     ReportSearchComponent
   ],
   imports: [
+    FormsModule,
     CommonModule,
     ReportRoutingModule
   ]

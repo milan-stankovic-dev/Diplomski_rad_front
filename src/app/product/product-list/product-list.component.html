@@ -33,18 +33,20 @@
       <td>{{ product.amount }}</td>
       <td>{{ product.type }}</td>
       <td>{{ product.price }}</td>
+      <!-- <td><button >Update</button></td> -->
+      <!-- <td><button >Delete</button></td> -->
     </tr>
   </tbody>
 </table>
 </div>
 <div class="button-container">
-  <button class="delete-button">Delete</button>
+  <button class="delete-button" (click)="alterModalDelete()">Delete</button>
   <button class="insert-button" (click)="alterModal()">Insert</button>
-  <button class="update-button">Update</button>
+  <button class="update-button" (click)="updateSelectedProduct(selectedProduct)">Update</button>
 </div>
 
  <div class = "modal is-active" *ngIf="isModalOpen">
-  <div class = "modal-background"></div>
+  <div class = "modal-background">
   <div class="modal-content has-background-white py-5 px-5">
     
       <div class="container">
@@ -116,3 +118,33 @@
           </div>
         </form>
       </div>
+    </div>
+    </div>
+  </div>
+
+  <div class = "modal is-active" *ngIf="isModalDeleteOpen">
+    <div class = "modal-background">
+    <div class="modal-content has-background-white py-5 px-5">
+      
+        <div class="container">
+          <h1 class="title">Delete Product</h1>
+          <form [formGroup] = "insertForm">
+            
+            <div style="text-align: center;">
+              <p>Are you sure you want to delete this product? This cannot be undone.</p>
+            
+            <button class="delete-button" (click)="deleteProduct(selectedProduct)">Delete</button>
+            <button class="button is-warning" (click)="alterModalDelete()">Cancel</button>
+          </div>
+
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
+
+<app-product-update
+[isModalOpen]="isModalUpdateOpen"
+[product]="selectedProduct"
+></app-product-update>
+ 

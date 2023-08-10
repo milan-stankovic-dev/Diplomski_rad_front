@@ -24,7 +24,9 @@ import { Observable} from 'rxjs';
           <div class = "field"> 
             <label  for="username" class = "label">Username:</label>
             <input type = "text"
-             name = "username" class = "input"
+             name = "username" 
+             placeholder="Enter your username:"
+             class = "input"
               (input)="clearError()"
               [(ngModel)] = "username"
               #usernameInput = "ngModel"
@@ -37,6 +39,7 @@ import { Observable} from 'rxjs';
             <label  for="password" class = "label">Password:</label>
             <input type = "password"
             name = "password"
+            placeholder="Enter your password:"
             class = "input"
             (input)="clearError()"
             [(ngModel)] = "password"

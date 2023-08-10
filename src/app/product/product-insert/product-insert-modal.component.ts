@@ -14,12 +14,12 @@ export class ProductInsertModalComponent {
 
   constructor(private formBuilder: FormBuilder) {
     this.productForm = this.formBuilder.group({
-      productName: ['', Validators.required],
-      weight: ['', Validators.required],
+      productName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
+      weight: ['', [Validators.required, Validators.min(0)]],
       fragile: [false],
-      amount: ['', Validators.required],
+      amount: ['', [Validators.required, Validators.min(1)]],
       productType: ['', Validators.required],
-      price: ['', Validators.required]
+      price: ['', [Validators.required, Validators.min(1)]]
     });
   }
 
