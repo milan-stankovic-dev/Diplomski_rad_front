@@ -18,6 +18,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductUpdateComponent } from './product-update/product-update.component';
+import { NoteComponent } from './goods-received-note/note/note.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ProductUpdateComponent } from './product-update/product-update.componen
     FooterComponent,
     HomeComponent,
     LoginComponent,
-    ProductUpdateComponent
+    ProductUpdateComponent,
+    NoteComponent
   ],
   imports: [
     BrowserModule,

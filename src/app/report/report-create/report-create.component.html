@@ -46,6 +46,7 @@
   <!-- <button class="delete-button" (click)="alterModalDelete()">Delete</button> -->
   <button class="insert-button" (click)="insertReport(newReport)">Insert</button>
   <button class="is-hoverable danger" (click)="openCapacityUpdateModal()">Change Total Capacity</button>
+  <button class = "is-hoverable danger" routerLink="/report/search">Search for reports...</button>
 </div>
 
 <div class = "modal is-active" *ngIf="isCapacityModal">

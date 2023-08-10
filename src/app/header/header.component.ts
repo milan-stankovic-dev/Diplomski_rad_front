@@ -15,7 +15,7 @@ import { AuthService } from '../service/auth.service';
         <a class = "navbar-item" routerLink = "/">Home</a>
         <a class = "navbar-item" routerLink = "/product">Product</a>  
         <a class = "navbar-item" routerLink = "/report">Report</a>
-        <a class = "navbar-item">Goods received note</a>
+        <a class = "navbar-item" routerLink="/goods-received-note">Goods received note</a>
         <a class = "navbar-item">Bill of lading</a>
         <a class = "navbar-item">About</a>          
       </div>
