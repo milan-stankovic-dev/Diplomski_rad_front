@@ -19,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductUpdateComponent } from './product-update/product-update.component';
 import { NoteComponent } from './goods-received-note/note/note.component';
+// import { ProductTableComponent } from './product-table/product-table.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NoteComponent } from './goods-received-note/note/note.component';
     HomeComponent,
     LoginComponent,
     ProductUpdateComponent,
-    NoteComponent
+    NoteComponent,
+    // ProductTableComponent
   ],
   imports: [
     BrowserModule,

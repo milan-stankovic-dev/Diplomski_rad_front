@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    </head>
+    <body>
+
+<h1 class="title">Storage Capacity Report Search:</h1>
+<div class="search-container">
+  <label for="search" class="search-label">Search for report by date:</label>
+  <br>
+  <input type="text" id="search" [(ngModel)]="inputtedDate" class="search-input">
+  <br>
+  <button>Find</button>
+  <br>
+  <label>Report Date</label>
+  <input type="text" disabled [value]="" [value]="selectedReport?.reportDate">
+  <br>
+  <label>Total Capacity Available (in %):</label>
+  <input type="text" disabled [value]="selectedReport?.totalCapacity">
+  <br><br>
+  <select name="report-selection" [(ngModel)]="selectedReport">
+    <option [value]="null" disabled selected>Pick your report:</option>
+    <option *ngFor="let report of reportList" [ngValue]="report">{{ report.reportDate | date }}</option>
+  </select>
+</div>
+<div class = "table-div">
+<table class="table is-bordered is-hoverable is-fullwidth custom-table">
+  <thead>
+    <tr>
+      <th>Ordinal No.</th>
+      <th>Product Name</th>
+      <th>Capacity Available</th>
+      <th>Capacity Used</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngIf="selectedReport!=undefined; else noReportItems">
+        <tr *ngFor="let item of selectedReport.reportItems; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ item?.product?.productName }}</td>
+          <td>{{ item?.totalAvailableCapacity }}</td>
+          <td>{{ item?.productCapacity }}</td>
+        </tr>
+      </ng-container>
+      <ng-template #noReportItems>
+        <tr>
+          <td colspan="4">No report items available for the selected report.</td>
+        </tr>
+      </ng-template>
+  </tbody>
+</table>
+</div>

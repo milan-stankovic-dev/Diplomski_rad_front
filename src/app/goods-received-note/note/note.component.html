@@ -1,1 +1,65 @@
-<h1>Note works!</h1>
+<!DOCTYPE html>
+    <html>
+    <head>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    </head>
+    <body>
+
+<h1 class="title">Goods received note:</h1>
+<div class="total-cost-div">
+    <label>Total Cost: </label>
+    <input type="text" disabled value="0">
+</div>
+<div class="note-div">
+    <label>Receiving Firm:</label>
+    <br>
+    <select id="partner-list" >
+        <option value="" disabled selected>Select a Partner</option>
+        <option *ngFor="let partner of partners">{{partner.name}}</option>
+    </select>
+    <br>
+    <label>Sending Firm:</label>
+    <br>
+    <select id="firm-list" >
+        <option value="" disabled selected>Select a Firm</option>
+        <option *ngFor="let firm of firms">{{firm.firmName}}</option>
+    </select>
+    <br>
+    <div class="dates">
+        <label>Issue Date:</label>
+        <input type="text" placeholder="input your date here:">
+        <br>
+        <label>Due Date:</label>
+        <input type="text" placeholder="input your date here:">
+    </div>
+</div>
+<div class = "table-div">
+    <button name="add">Add Item</button>
+    <button name="delete">Delete Item</button>
+    <select name="products-select">
+        <option disabled selected>Please pick a product to order:</option>
+        <option *ngFor="let product of products">{{product}}</option>
+    </select>
+<table class="table is-bordered is-hoverable is-fullwidth custom-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Product Name</th>
+      <th>Product Qty.</th>
+      <th>Price (per unit)</th>
+      <th>Price (gross)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ 1 }}</td>
+      <td>{{ 2 }}</td>
+      <td>{{ 3 }}</td>
+      <td>{{ 4 }}</td>
+      <td>{{ 5 }}</td>
+      <!-- <td><button >Update</button></td> -->
+      <!-- <td><button >Delete</button></td> -->
+    </tr>
+  </tbody>
+</table>
+</div>
