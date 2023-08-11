@@ -9,9 +9,12 @@
 <div class="search-container">
   <label for="search" class="search-label">Search for report by date:</label>
   <br>
-  <input type="text" id="search" [(ngModel)]="inputtedDate" class="search-input">
+  <div class= "container">
+    Date: <input type="text"  placeholder="Pick your date:"
+    class="form-control" bsDatepicker [(ngModel)]="inputtedDate">
+    </div>
   <br>
-  <button>Find</button>
+  <button (click)="findReportsByDate(inputtedDate)">Find</button>
   <br>
   <label>Report Date</label>
   <input type="text" disabled [value]="" [value]="selectedReport?.reportDate">
@@ -21,7 +24,7 @@
   <br><br>
   <select name="report-selection" [(ngModel)]="selectedReport">
     <option [value]="null" disabled selected>Pick your report:</option>
-    <option *ngFor="let report of reportList" [ngValue]="report">{{ report.reportDate | date }}</option>
+    <option *ngFor="let report of foundReportsList" [ngValue]="report">{{ report.reportDate | date }}</option>
   </select>
 </div>
 <div class = "table-div">

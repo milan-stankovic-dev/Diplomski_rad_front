@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductUpdateComponent } from './product-update/product-update.component';
 import { NoteComponent } from './goods-received-note/note/note.component';
 // import { ProductTableComponent } from './product-table/product-table.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { NoteComponent } from './goods-received-note/note/note.component';
     MatButtonModule,
     MatChipsModule,
     MatCheckboxModule,
+    // BsDatepickerModule.forRoot()
   ],
   providers: [{
     useClass: AuthInterceptor,

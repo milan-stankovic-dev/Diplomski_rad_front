@@ -5,6 +5,7 @@ import { ReportRoutingModule } from './report-routing.module';
 import { ReportCreateComponent } from './report-create/report-create.component';
 import { ReportSearchComponent } from './report-search/report-search.component';
 import { FormsModule } from '@angular/forms';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     FormsModule,
     CommonModule,
-    ReportRoutingModule
+    ReportRoutingModule,
+    BsDatepickerModule.forRoot()
   ]
 })
 export class ReportModule { }
