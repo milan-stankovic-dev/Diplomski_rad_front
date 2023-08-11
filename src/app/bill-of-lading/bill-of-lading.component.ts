@@ -8,32 +8,44 @@ import { FirmService } from 'src/app/service/firm.service';
 import { GoodsReceivedNoteService } from 'src/app/service/goods-received-note.service';
 import { PartnerService } from 'src/app/service/partner.service';
 import { ProductService } from 'src/app/service/product.service';
+import { LegalPerson } from '../domain/LegalPerson';
+import { NaturalPerson } from '../domain/NaturalPerson';
+import { LegalPersonService } from '../service/legal-person.service';
+import { NaturalPersonService } from '../service/natural-person.service';
+import { BillOfLading } from '../domain/BillOfLading';
+import { BillOfLadingItem } from '../domain/BillOfLadingItem';
+import { BillOfLadingService } from '../service/bill-of-lading.service';
 
 @Component({
   selector: 'app-note',
-  templateUrl: './note.component.html',
-  styleUrls: ['./note.component.scss']
+  templateUrl: './bill-of-lading.component.html',
+  styleUrls: ['./bill-of-lading.component.scss']
 })
-export class NoteComponent implements OnInit{
+export class BillOfLadingComponent implements OnInit{
+
   products: Product[]
-  partners: Partner[]
+  naturalPersons: NaturalPerson[]
+  legalPersons: LegalPerson[]
   firms: Firm[]
   selectedIssueDate: Date
   selectedDueDate: Date
   selectedProduct: Product;
-  goodsReceivedNoteItems: GoodsReceivedNoteItem[] = []
-  selectedItem: GoodsReceivedNoteItem
+  billOfLadingItems: BillOfLadingItem[] = []
+  selectedItem: BillOfLadingItem
   setOrderAmountModal: boolean = false
   amountToOrder: number
   totalCost: number = 0
-  newNote: GoodsReceivedNote
+  newBill: BillOfLading
   selectedFirm: Firm
-  selectedPartner: Partner
+  selectedNaturalPerson: NaturalPerson
+  selectedLegalPerson: LegalPerson
+  isNaturalPersonSelected: boolean = true
 
   constructor(private productService: ProductService,
-    private partnerService: PartnerService, 
+    private legalPersonService: LegalPersonService, 
+    private naturalPersonService: NaturalPersonService,
     private firmService: FirmService,
-    private noteService: GoodsReceivedNoteService){}
+    private billService: BillOfLadingService){}
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe((products)=>{
@@ -52,15 +64,22 @@ export class NoteComponent implements OnInit{
       console.log(error)
     }
     )
-    this.partnerService.getAllPartners().subscribe((partners)=>{
-      this.partners = partners
+    this.naturalPersonService.getAllNaturalPersons().subscribe((persons)=>{
+      this.naturalPersons = persons
     },
     error=>{
       alert(error.error)
       console.log(error)
     }
     )
-
+    this.legalPersonService.getAllLegalPersons().subscribe((persons)=>{
+      this.legalPersons = persons
+    },
+    error=>{
+      alert(error.error)
+      console.log(error)
+    }
+    )
   }
 
   addNewItem(productToAdd: Product): void {
@@ -69,50 +88,34 @@ export class NoteComponent implements OnInit{
       return;
     }
   
-    if (this.contains(productToAdd, this.goodsReceivedNoteItems)) {
+    if (this.contains(productToAdd, this.billOfLadingItems)) {
       alert("Product item already exists in the list.");
     } else {
-      const itemToAdd: GoodsReceivedNoteItem = {
+      const itemToAdd: BillOfLadingItem = {
         id: 0,
-        amountOrdered: 0,
+        amountSold: 0,
         product: productToAdd
       };
-      this.goodsReceivedNoteItems.push(itemToAdd);
+      this.billOfLadingItems.push(itemToAdd);
       alert("Product added successfully.");
     }
   }
   
 
-  contains(product: Product, arrayOfItems: GoodsReceivedNoteItem[]): boolean {
+  contains(product: Product, arrayOfItems: BillOfLadingItem[]): boolean {
     return arrayOfItems.some(item => item.product.id === product.id);
   }
   
-
-  // productsEqual(product1: Product, product2: Product):boolean{
-  //   alert("Product 1: " + product1)
-  //   alert("Product 2: " + product2)
-  //     if(product1.productName === product2.productName &&
-  //       product1.amount === product2.amount && product1.price === product2.price &&
-  //       product1.type === product2.type && product1.fragile === product2.fragile &&
-  //       product1.weight === product2.weight){
-  //         alert("Product 1 name: " + product1.productName)
-  //         alert("Product 2 name: " + product2.productName)
-  //         alert("Products equal... satisfied that " + JSON.stringify(product1)
-  //         + " and " + JSON.stringify(product2) + " are equal!")
-  //       return true 
-  //       }
-  //       return false  
-  // }
-  selectItem(selectedItem: GoodsReceivedNoteItem) {
+  selectItem(selectedItem: BillOfLadingItem) {
     this.selectedItem = selectedItem
   }
 
-  deleteSelectedItem(selectedItem: GoodsReceivedNoteItem) {
+  deleteSelectedItem(selectedItem: BillOfLadingItem) {
     if(selectedItem === undefined){
       alert("Please select an item to delete.")
       return;
     }
-    this.goodsReceivedNoteItems.splice(this.goodsReceivedNoteItems.indexOf(selectedItem),1)
+    this.billOfLadingItems.splice(this.billOfLadingItems.indexOf(selectedItem),1)
     alert("Item removed successfully!")
     this.totalCost = this.calculateTotalCost()
   }
@@ -124,43 +127,44 @@ export class NoteComponent implements OnInit{
     this.setOrderAmountModal = true
   }
 
-  setOrderAmountForProductInItem(item: GoodsReceivedNoteItem,amountOrdered: number): void{
-    if(item === undefined || amountOrdered === undefined){
+  setOrderAmountForProductInItem(item: BillOfLadingItem,amountSold: number): void{
+    if(item === undefined || amountSold === undefined){
       return
     }
-    const foundIndexOfItemToAlter = this.goodsReceivedNoteItems.indexOf(item)
-    this.goodsReceivedNoteItems[foundIndexOfItemToAlter].amountOrdered = amountOrdered
+    const foundIndexOfItemToAlter = this.billOfLadingItems.indexOf(item)
+    this.billOfLadingItems[foundIndexOfItemToAlter].amountSold = amountSold
 
     this.totalCost = this.calculateTotalCost()
     this.changeAmountOrdered()
   }
   calculateTotalCost() :number {
     let totalCost = 0
-    for(const item of this.goodsReceivedNoteItems){
-      totalCost+= (item.amountOrdered * item.product.price)
+    for(const item of this.billOfLadingItems){
+      totalCost+= (item.amountSold * item.product.price)
     }
 
     return totalCost
   }
 
-  submitNote(arg0: any) {
+  submitBill(bill: BillOfLading) {
+    // alert(JSON.stringify(bill))
     try{
-      this.validateNote();
-      const note = this.createNote()
+      this.validateBill();
+      const bill = this.createBill()
 
-      this.insertNote(note)
+      this.insertBill(bill)
 
     }catch(error){
       alert(error.error)
     }
   }
 
-  insertNote(note: GoodsReceivedNote):void {
-    console.log(note)
-    alert(JSON.stringify(note))
-    this.noteService.insertNote(note).subscribe(
+  insertBill(bill: BillOfLading):void {
+    console.log(bill)
+    // alert(JSON.stringify(bill))
+    this.billService.insertBill(bill).subscribe(
       response=>{
-        alert("Note successfully inserted!")
+        alert("Bill successfully inserted!")
         console.log(response)
       },
       error => {
@@ -171,18 +175,20 @@ export class NoteComponent implements OnInit{
 
   }
 
-  createNote() :GoodsReceivedNote{
-    let note: GoodsReceivedNote = {
+  createBill() :BillOfLading{
+    let bill: BillOfLading = {
       id: 0,
       deadLine: this.selectedDueDate,
+      issueDate: this.selectedIssueDate,
       totalCost: this.totalCost,
-      partner: this.selectedPartner,
-      items: this.goodsReceivedNoteItems
+      buyer : this.isNaturalPersonSelected?
+       this.selectedNaturalPerson: this.selectedLegalPerson,
+      items: this.billOfLadingItems
     }
-    return note
+    return bill
   }
-  validateNote() :void{
-    this.noteHasItems()
+  validateBill() :void{
+    this.billHasItems()
     this.totalCostIsNotZero()
     this.allFieldsAreSet()
     this.datesAreWellSet()
@@ -199,7 +205,8 @@ export class NoteComponent implements OnInit{
 
   allFieldsAreSet():void {
     if(this.selectedFirm === undefined ||
-      this.selectedPartner === undefined || 
+      (this.selectedLegalPerson === undefined 
+      && this.selectedNaturalPerson === undefined) || 
       this.selectedDueDate === undefined || 
       this.selectedIssueDate === undefined ){
         throw new Error('Please fill in all required fields.')
@@ -211,12 +218,18 @@ export class NoteComponent implements OnInit{
       throw new Error('You may not order zero products.');
   }
 
-  noteHasItems():void {
-    if(this.goodsReceivedNoteItems === undefined ||
-      this.goodsReceivedNoteItems.length === 0)
-    throw new Error('Please input products for ordering before saving your goods received note.');
+  billHasItems():void {
+    if(this.billOfLadingItems === undefined ||
+      this.billOfLadingItems.length === 0)
+    throw new Error('Please input products for ordering before saving your bill of lading.');
   }
 
-  
+  personTypeSwitch():void {
+    if(this.isNaturalPersonSelected){
+      this.isNaturalPersonSelected = false
+    }
+    else 
+    this.isNaturalPersonSelected = true
+  }
     
 }

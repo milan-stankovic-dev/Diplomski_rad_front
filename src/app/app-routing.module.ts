@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NoteComponent } from './goods-received-note/note/note.component';
 import { ReportSearchComponent } from './report/report-search/report-search.component';
+import { BillOfLadingComponent } from './bill-of-lading/bill-of-lading.component';
  
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: 'goods-received-note',
     component: NoteComponent
+  },
+  {
+    path: 'bill-of-lading',
+    component: BillOfLadingComponent
   },
   {
     path: '**',

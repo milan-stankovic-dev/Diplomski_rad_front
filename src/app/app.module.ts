@@ -21,6 +21,8 @@ import { ProductUpdateComponent } from './product-update/product-update.componen
 import { NoteComponent } from './goods-received-note/note/note.component';
 // import { ProductTableComponent } from './product-table/product-table.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ProductDisplayComponent } from './product-display/product-display.component';
+import { BillOfLadingComponent } from './bill-of-lading/bill-of-lading.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     LoginComponent,
     ProductUpdateComponent,
     NoteComponent,
+    ProductDisplayComponent,
+    BillOfLadingComponent,
     // ProductTableComponent
   ],
   imports: [
@@ -47,7 +51,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     MatButtonModule,
     MatChipsModule,
     MatCheckboxModule,
-    // BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot()
   ],
   providers: [{
     useClass: AuthInterceptor,

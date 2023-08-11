@@ -6,5 +6,5 @@ export interface GoodsReceivedNote{
     deadLine : Date
     totalCost : number
     partner : Partner
-    items : GoodsReceivedNoteItem
+    items : GoodsReceivedNoteItem[]
 }
