@@ -6,29 +6,14 @@ import { ProductUpdateComponent } from './product-update/product-update.componen
 import { ProductDeleteComponent } from './product-delete/product-delete.component';
 import { ProductSearchComponent } from './product-search/product-search.component';
 import { ProductInsertModalComponent } from './product-insert/product-insert-modal.component';
+import { AuthGuard } from '../auth-guard.service';
 
 const routes: Routes = [
     {
      path: '',
      component: ProductListComponent,
      pathMatch: 'full'
-    },
-    {
-     path: 'insert',
-     component: ProductInsertModalComponent
-    },
-    {
-      path: 'update',
-      component: ProductUpdateComponent
-    },
-    {
-      path: 'delete',
-      component: ProductDeleteComponent
-    },
-    {
-      path: 'search',
-      component: ProductSearchComponent
-    },
+    }
     
 ];
 

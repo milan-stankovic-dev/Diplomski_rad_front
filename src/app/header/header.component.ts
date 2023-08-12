@@ -19,9 +19,12 @@ import { AuthService } from '../service/auth.service';
         <a class = "navbar-item" routerLink = "/bill-of-lading">Bill of lading</a>
         <a class = "navbar-item">About</a>          
       </div>
-      <div class = "navbar-end"*ngIf = "!(authService.loggedInStatus | async)">
+      <div class = "navbar-end" *ngIf = "!(authService.loggedInStatus | async)">
         <a class = "navbar-item" routerLink = "/login">Login</a>
         <a class = "navbar-item" routerLink = "/register">Register</a>
+    </div>
+    <div class = "navbar-end" *ngIf = "authService.loggedInStatus | async">
+        <a class = "navbar-item" (click)="logout()">Log out</a>
     </div>
 </div>
   `,
@@ -37,7 +40,13 @@ import { AuthService } from '../service/auth.service';
   ]
 })
 export class HeaderComponent {
+
   constructor(public authService: AuthService){
 
+  }
+
+  logout():void {
+    this.authService.logout()
+    alert("You have successfully logged out")
   }
 }

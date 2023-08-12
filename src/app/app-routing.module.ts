@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { NoteComponent } from './goods-received-note/note/note.component';
 import { ReportSearchComponent } from './report/report-search/report-search.component';
 import { BillOfLadingComponent } from './bill-of-lading/bill-of-lading.component';
+import { AuthGuard } from './auth-guard.service';
  
 const routes: Routes = [
   {
@@ -17,27 +18,33 @@ const routes: Routes = [
   },
   {
     path: 'product',
-    loadChildren: () => import('./product/product.module').then(m => m.ProductModule)
+    loadChildren: () => import('./product/product.module').then(m => m.ProductModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'report',
-    loadChildren: () => import('./report/report.module').then(m => m.ReportModule)
+    loadChildren: () => import('./report/report.module').then(m => m.ReportModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'report/search',
-    component: ReportSearchComponent
+    component: ReportSearchComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'goods-received-note',
-    component: NoteComponent
+    component: NoteComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'bill-of-lading',
-    component: BillOfLadingComponent
+    component: BillOfLadingComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '**',
-    component: HomeComponent
+    component: HomeComponent,
+    
   }
 ];
 

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ReportCreateComponent } from './report-create/report-create.component';
 import { ReportSearchComponent } from './report-search/report-search.component';
+import { AuthGuard } from '../auth-guard.service';
 
 const routes: Routes = [
   {
@@ -11,7 +12,8 @@ const routes: Routes = [
   },
   {
    path: 'search',
-   component: ReportSearchComponent
+   component: ReportSearchComponent,
+   canActivate: [AuthGuard]
   }
 ];
 
