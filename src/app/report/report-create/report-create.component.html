@@ -6,21 +6,20 @@
     <body>
 
 <h1 class="title">Report Data:</h1>
-<div class="search-container">
-  <!-- <label for="search" class="search-label">Search:</label> -->
-  <br>
-  <!-- <input type="text" id="search" [(ngModel)]="searchDate" (input)="filterReports()" class="search-input"> -->
-</div>
-<div class = "table-div">
-    <table class="table is-bordered is-hoverable ">
-        <tbody>
+
+<div class = "data-div">
+            <label class="description-label">Report issue date:</label>
+            <br>
             <!-- <tr>{{newReport.id}}</tr> -->
-            <tr>{{newReport.reportDate | date}}</tr>
-            <tr>{{newReport.totalCapacity + "%"}}</tr>
-        </tbody>
-    </table>
-<table class="table is-bordered is-hoverable is-fullwidth custom-table">
-  <thead>
+            <label class="data-label">{{newReport.reportDate | date}}</label>
+            <br>
+            <label class="description-label">Total available storage capacity:</label>
+            <br>
+            <label class="data-label">{{newReport.totalCapacity + "%"}}</label>
+            <br>
+            <br>
+<table class="table is-bordered is-hoverable is-fullwidth">
+  <thead class="custom-table-head">
     <tr>
       <!-- <th>Report Item ID</th> -->
       <th>Product capacity (%)</th>
@@ -29,7 +28,7 @@
       <th>Number of products in database</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class="custom-table-body">
     <tr *ngFor="let item of newReport.reportItems">
       <!-- <td>{{ item.id }}</td> -->
       <td>{{ item.productCapacity + "%"}}</td>
@@ -42,11 +41,12 @@
   </tbody>
 </table>
 </div>
-<div class="button-container">
+<div class="button-container bottom-div
+is-grouped field">
   <!-- <button class="delete-button" (click)="alterModalDelete()">Delete</button> -->
-  <button class="insert-button" (click)="insertReport(newReport)">Insert</button>
-  <button class="is-hoverable danger" (click)="openCapacityUpdateModal()">Change Total Capacity</button>
-  <button class = "is-hoverable danger" routerLink="/report/search">Search for reports...</button>
+  <button class=" insert-button button is-success" (click)="insertReport(newReport)">Insert</button>
+  <button class=" change-button button is-success" (click)="openCapacityUpdateModal()">Change Total Capacity</button>
+  <button class = "search-button button is-success" routerLink="/report/search">Search for reports...</button>
 </div>
 
 <div class = "modal is-active" *ngIf="isCapacityModal">
@@ -56,12 +56,11 @@
         <div class="container">
           <h1 class="title">Change Product Capacity for Report</h1>
           <form>
-            
-            <div style="text-align: center;">
-              <p>Enter new product capacity value:</p>
-              <input type = "number" name = "cap-input" required 
+              <p class="info-p">Enter new product capacity value:</p>
+              <input class="cap-input" type = "number" name = "cap-input" required 
                min="10" max="10000"
                [(ngModel)]="globalCap">
+              <div style="text-align: center;">
             <button class="delete-button" (click)="commitToGlobalChangeInCapacity(globalCap)">Change</button>
             <button class="button is-warning" (click)="alterCapacityModal()">Cancel</button>
           </div>
@@ -82,7 +81,7 @@
               
               <div style="text-align: center;">
                 <p>Enter new product capacity value:</p>
-                <input type = "number" name = "cap-input" required 
+                <input type = "number" class="cap-input" name = "cap-input" required 
                  min="1" max="10000"
                  [(ngModel)]="singleCap">
               <button class="delete-button" (click)="commitToSingleCapChange(singleCap)">Change</button>
