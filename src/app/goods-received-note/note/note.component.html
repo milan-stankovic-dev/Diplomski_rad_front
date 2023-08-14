@@ -56,7 +56,7 @@
 <div class = "table-div">
     
     
-<table class="table is-bordered is-hoverable is-fullwidth custom-table">
+<table *ngIf="goodsReceivedNoteItems.length > 0" class="table is-bordered is-hoverable is-fullwidth custom-table">
   <thead class="custom-table-head">
     <tr>
       <th>Ordinal No.</th>
@@ -67,7 +67,8 @@
     </tr>
   </thead>
   <tbody class="custom-table-body">
-    <tr *ngFor="let item of goodsReceivedNoteItems; let i = index" (click) = "selectItem(item)">
+    <tr [style.border]="selectedItem===item? '5px solid #2e7d32' : 'none'"
+     *ngFor="let item of goodsReceivedNoteItems; let i = index" (click) = "selectItem(item)">
       <td>{{ i+1 }}</td>
       <td>{{ item.product.productName }}</td>
       <td>{{ item.amountOrdered }} <button (click)="changeAmountOrdered()">Change</button></td>

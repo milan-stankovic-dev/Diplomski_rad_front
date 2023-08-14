@@ -115,6 +115,7 @@ export class NoteComponent implements OnInit{
     this.goodsReceivedNoteItems.splice(this.goodsReceivedNoteItems.indexOf(selectedItem),1)
     alert("Item removed successfully!")
     this.totalCost = this.calculateTotalCost()
+    this.selectedItem = undefined
   }
     
   changeAmountOrdered() {
@@ -143,7 +144,7 @@ export class NoteComponent implements OnInit{
     return totalCost
   }
 
-  submitNote(arg0: any) {
+  submitNote(arg0: GoodsReceivedNote) {
     try{
       this.validateNote();
       const note = this.createNote()
@@ -151,7 +152,7 @@ export class NoteComponent implements OnInit{
       this.insertNote(note)
 
     }catch(error){
-      alert(error.error)
+      alert(error)
     }
   }
 

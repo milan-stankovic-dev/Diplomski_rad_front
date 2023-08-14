@@ -72,7 +72,6 @@ export class ProductUpdateComponent implements OnInit{
     submitProduct(): void {
     
       console.log('Submitted product:', JSON.stringify(this.product));
-      alert(JSON.stringify(this.product))
       this.productService.updateProduct(this.product === null? null : this.product)
       .subscribe(
         response => {

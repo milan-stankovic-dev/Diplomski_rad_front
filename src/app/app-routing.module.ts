@@ -5,7 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { NoteComponent } from './goods-received-note/note/note.component';
 import { ReportSearchComponent } from './report/report-search/report-search.component';
 import { BillOfLadingComponent } from './bill-of-lading/bill-of-lading.component';
-import { AuthGuard } from './auth-guard.service';
+import { AuthGuard } from './service/auth-guard.service';
  
 const routes: Routes = [
   {

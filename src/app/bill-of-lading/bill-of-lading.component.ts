@@ -118,6 +118,7 @@ export class BillOfLadingComponent implements OnInit{
     this.billOfLadingItems.splice(this.billOfLadingItems.indexOf(selectedItem),1)
     alert("Item removed successfully!")
     this.totalCost = this.calculateTotalCost()
+    this.selectedItem = undefined
   }
     
   changeAmountOrdered() {
@@ -155,7 +156,7 @@ export class BillOfLadingComponent implements OnInit{
       this.insertBill(bill)
 
     }catch(error){
-      alert(error.error)
+      alert(error)
     }
   }
 

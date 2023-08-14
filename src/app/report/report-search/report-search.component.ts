@@ -13,7 +13,7 @@ export class ReportSearchComponent implements OnInit{
 
   inputtedDate: Date
   reportList: Report[]
-  selectedReport: Report
+  selectedReport: Report | null = null
   foundReportsList: Report[]
 
   findReportsByDate(dateForSearch: Date):void{
@@ -29,9 +29,11 @@ export class ReportSearchComponent implements OnInit{
     }
 
     this.foundReportsList = foundReports
+    
     if(foundReports.length === 0){
       alert("No reports found for your query!")
     }else{
+      this.selectedReport = foundReports[0];
       alert(`found ${foundReports.length} reports for your query!`)
     }
   }

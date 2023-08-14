@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ReportCreateComponent } from './report-create/report-create.component';
 import { ReportSearchComponent } from './report-search/report-search.component';
-import { AuthGuard } from '../auth-guard.service';
+import { AuthGuard } from '../service/auth-guard.service';
 
 const routes: Routes = [
   {
