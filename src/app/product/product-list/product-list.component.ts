@@ -121,6 +121,9 @@ export class ProductListComponent implements OnInit {
           this.filteredProducts = products;
         });
         this.alterModal()
+      },
+      error =>{
+        alert(error.error)
       }
     )
   }

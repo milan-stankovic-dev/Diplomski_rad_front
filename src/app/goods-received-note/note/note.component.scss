@@ -1,0 +1,112 @@
+.title {
+    font-weight: bold;
+    color: thistle;
+    text-align: center;
+    padding: 25px;
+    background-image: linear-gradient(to bottom, #a43838, red);
+  }
+
+  .flex-display-div{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+
+  .total-cost-div{
+    margin-right: 20px;
+  }
+
+  .note-div{
+    margin-left: 20px;
+  }
+
+  .info-label{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    background-color: antiquewhite;
+  }
+
+  .input-class,
+.form-control,
+select {
+  font-weight: bold;
+  text-align: left;
+  border: 2px solid #95402b;
+  border-radius: 5px;
+  background-color: rgba(46, 125, 50, 0.1);
+  color: #c42d1f;
+  width: 6cm;
+  height: 12mm;
+  padding: 8px;
+  margin-left: 0;
+  margin-bottom: 20px;
+}
+
+  .dates{
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 30px;
+  }
+
+  .child-date{
+    margin: 20px;
+    text-align: center;
+  }
+
+  .item-button{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  #item-inputs,
+  .button-div{
+    margin-left: auto;
+    margin-right: 60px;
+  }
+  
+  .custom-table-head{
+    text-align: center;
+    padding: 20px;
+    width: 90%;
+    color: whitesmoke !important;
+    margin: 50px auto 0;
+    margin-bottom: 50px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #dbdbdb;
+    background-color: #5cb85c;
+    background-image: linear-gradient(to bottom, #dd4747, #dd2525);
+  }
+
+  table{
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+
+  .custom-table-body{
+    text-align: center;
+    vertical-align: middle;
+    background-color: rgb(249, 164, 164);
+    border-color: darkgrey;
+  }
+
+  button {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    width: 150px;
+    padding: 12px 20px;
+    color: whitesmoke;
+    border: none;
+    cursor: pointer;
+    background-color: #4eb5f1;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    transition: background-color 0.3s, transform 0.3s;
+    font-weight: bold;
+    font-size: large;
+    padding: auto;
+  }
+
+  

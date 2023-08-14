@@ -13,7 +13,6 @@ export class ReportService {
   constructor(private http:HttpClient) { }
   
   insertReport(report:Report):Observable<Report>{
-    alert("Attempting to save report")
     console.log(JSON.stringify(report))
     return this.http.post<Report>(`${this.apiUrl}`,report)
   }

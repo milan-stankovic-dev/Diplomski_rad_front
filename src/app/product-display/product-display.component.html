@@ -1,38 +1,41 @@
-<br><br>
-<div *ngIf="productToDisplay !== undefined; else noData">
-<label>ID:</label>
-<br>
-<input type="text" disabled [value]="productToDisplay.id">
-<br><br>
-<label>Product name:</label>
-<br>
-<input type="text" disabled [value]="productToDisplay.productName">
-<br><br>
-<label>Product weight:</label>
-<br>
-<input type="text" disabled [value]="productToDisplay.weight">
-<br><br>
-<label>Fragile:</label>
-<br>
-<select name="fragile-display" disabled>
-    <option disabled selected [value]="productToDisplay.fragile">{{productToDisplay.fragile}}</option>
-</select>
-<br>
-<label>Stock:</label>
-<br>
-<input type="text" disabled [value]="productToDisplay.amount">
-<br><br>
-<label>Product Type: </label>
-<br>
-<select name="type-display" disabled>
-    <option disabled selected [value]="productToDisplay.type">{{productToDisplay.type}}</option>
-</select>
-<br><br>
-<label>Price:</label>
-<br>
-<input type="text" disabled [value]="productToDisplay.price">
-<br><br>
+<div id="component-div">
+    <div class="flex-div-parent" *ngIf="productToDisplay !== undefined; else noData">
+      <div id="child-1-container" class="child-container">
+        <label>ID:</label>
+        <br>
+        <input type="text" disabled [value]="productToDisplay.id">
+        <br>
+        <label>Product name:</label>
+        <br>
+        <input type="text" disabled [value]="productToDisplay.productName">
+        <br>
+        <label>Product weight:</label>
+        <br>
+        <input type="text" disabled [value]="productToDisplay.weight">
+      </div>
+      <div id="child-2-container" class="child-container">
+        <label>Fragile:</label>
+        <br>
+        <select name="fragile-display" disabled>
+            <option disabled selected [value]="productToDisplay.fragile">{{productToDisplay.fragile}}</option>
+        </select>
+        <br>
+        <label>Stock:</label>
+        <br>
+        <input type="text" disabled [value]="productToDisplay.amount">
+        <br>
+        <label>Product Type: </label>
+        <br>
+        <select name="type-display" disabled>
+            <option disabled selected [value]="productToDisplay.type">{{productToDisplay.type}}</option>
+        </select>
+        <br>
+        <label>Price:</label>
+        <br>
+        <input type="text" disabled [value]="productToDisplay.price">
+      </div>
+    </div>
 </div>
-
-<ng-template #noData>Please select a product from the drop down list to display</ng-template>
-
+    <ng-template id="template" #noData>Please select a product from the drop-down list to display</ng-template>
+  
+  

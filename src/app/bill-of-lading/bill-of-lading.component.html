@@ -6,12 +6,9 @@
     <body>
 
 <h1 class="title">Bill of lading</h1>
-<div class="total-cost-div">
-    <label>Total Price: </label>
-    <input type="text" disabled [value]="totalCost">
-</div>
+<div class="flex-display-div">
 <div class="note-div">
-    <label>Receiver: </label>
+    <label class="info-label">Receiver: </label>
     <br>
     <select [disabled]="!isNaturalPersonSelected" id="natural-person-list" [(ngModel)]="selectedNaturalPerson">
         <option value="" disabled selected>Select a Natural Person</option>
@@ -23,35 +20,50 @@
       <option *ngFor="let person of legalPersons" [ngValue]="person">{{person.firmName}}</option>
   </select>
     <br>
-    <label>Firm:</label>
+    <label class="info-label">Firm:</label>
     <br>
     <select id="firm-list" [(ngModel)]="selectedFirm">
         <option value="" disabled selected>Select a Firm</option>
         <option *ngFor="let firm of firms " [ngValue]="firm">{{firm.firmName}}</option>
     </select>
+  </div>
+    <div class="total-cost-div">
+      <label class="info-label">Total Price: </label>
+      <input class="input-class" type="text" disabled [value]="totalCost">
+  </div>
+</div>
     <br>
     <div class="dates">
-        <label>Issue Date:</label>
+      <div class="child-date">
+        <label class ="info-label">Issue Date:</label>
+        <br>
         <input type="text" bsDatepicker placeholder="input your date here:"
         class = "form-control" [(ngModel)]="selectedIssueDate">
+      </div>
+      <div class="child-date">
+        <label class="info-label">Due Date:</label>
         <br>
-        <label>Due Date:</label>
         <input type="text" bsDatepicker placeholder="input your date here:"
         class = "form-control" [(ngModel)]="selectedDueDate">
     </div>
+    <div class="button-div">
+      <button class="button is-bordered is-warning" (click)="submitBill(newBill)">Submit</button>
+    </div>
+    <div id ="item-inputs" class = "child-date">
+      <select name="products-select" [(ngModel)]="selectedProduct">
+          <option value="" disabled selected [ngValue]="null">Please pick a product to order:</option>
+          <option selected *ngFor="let product of products" [ngValue]="product">{{product.productName}}</option>
+      </select>
+      <br><br>
+      <button class="item-button button is-success" name="add" (click)="addNewItem(selectedProduct)">Add Item</button>
+      <button class="item-button button is-danger" name="delete" (click)="deleteSelectedItem(selectedItem)">Delete Item</button>
+  </div>
 </div>
-<div class = "table-div">
-    <button name="add" (click)="addNewItem(selectedProduct)">Add Item</button>
-    <button name="delete" (click)="deleteSelectedItem(selectedItem)">Delete Item</button>
-    <select name="products-select" [(ngModel)]="selectedProduct">
-        <option value="" disabled selected [ngValue]="null">Please pick a product to order:</option>
-        <option selected *ngFor="let product of products" [ngValue]="product">{{product.productName}}</option>
-    </select>
-    <br><br>
-    <button class="button is-bordered is-warning" (click)="submitBill(newBill)">Submit</button>
-    <br><br>
+    
+    
+<div class="table-div">
 <table class="table is-bordered is-hoverable is-fullwidth custom-table">
-  <thead>
+  <thead class="custom-table-head">
     <tr>
       <th>Ordinal No.</th>
       <th>Product Name</th>
@@ -60,7 +72,7 @@
       <th>Price (gross)</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class = "custom-table-body">
     <tr *ngFor="let item of billOfLadingItems; let i = index" (click) = "selectItem(item)">
       <td>{{ i+1 }}</td>
       <td>{{ item.product.productName }}</td>

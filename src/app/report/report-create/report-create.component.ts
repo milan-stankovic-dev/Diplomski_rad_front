@@ -42,11 +42,11 @@ export class ReportCreateComponent implements OnInit{
 
       this.reportService.insertReport(report).subscribe((response)=>{
         alert("Report inserted successfully!")
-      }),
+      },
       error=>{
         alert(error.error)
         console.log(error)
-      }
+      })
     }
 
   hasDecimalPlaces(number: number): boolean {

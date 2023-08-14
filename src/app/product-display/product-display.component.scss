@@ -1,0 +1,31 @@
+.flex-div-parent {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+
+}
+
+.child-container {
+    flex: 1; 
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    justify-content: center;
+}
+
+#component-div{
+    margin-left: 20px;
+    margin-right: 20px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+#template{
+    text-align: center !important;
+}

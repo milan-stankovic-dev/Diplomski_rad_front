@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -15,7 +15,6 @@ export class AuthService {
 
   // constructor(private http: HttpClient, private router: Router) {}
   constructor(private http: HttpClient, private router: Router) {
-    // Get the initial authentication status from local storage
     const initialLoggedInStatus = this.isAuthenticated();
     this.loggedInStatusSubject$ = new BehaviorSubject<boolean>(initialLoggedInStatus);
   }
@@ -26,11 +25,20 @@ export class AuthService {
 
   login(username: string, password: string): Observable<AuthResponse> {
     const authRequest: AuthRequest = { username, password };
-    return this.http.post<AuthResponse>(`${this.url}/user/login`, authRequest).pipe(
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+  
+    const token = localStorage.getItem('token');
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+  
+    return this.http.post<AuthResponse>(`${this.url}/user/login`, authRequest, { headers }).pipe(
       tap((response: AuthResponse) => {
-        const token = response.token;
-        localStorage.setItem('token', token);
-        this.loggedInStatusSubject$.next(true); // Emit true for logged in
+        const newToken = response.token;
+        if (newToken) {
+          localStorage.setItem('token', newToken);
+        }
+        this.loggedInStatusSubject$.next(true); 
         this.router.navigate(['/']);
       }),
       catchError((error) => {
