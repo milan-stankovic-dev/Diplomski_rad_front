@@ -18,16 +18,15 @@ handleProductList($event: any) {
   this.filteredProducts = $event
 }
   product: any = {}
-  isModalOpen: boolean = false
+  isModalInsertOpen: boolean = false
   isModalDeleteOpen: boolean = false
   isModalUpdateOpen: boolean = false
-  products: Product[] = []
-  filteredProducts: Product[] = []
+  products: Product[]
+  filteredProducts: Product[]
   selectedProduct: Product | null = null
   searchTerm = ''
   productTypes: string[] = Object.values(ProductType)
-  type: string = ''
-  insertForm : FormGroup = new FormGroup({})
+
   @Output() reactiveProductList: Product[]
 
   constructor(private productService: ProductService) {}
@@ -40,25 +39,16 @@ handleProductList($event: any) {
     });
   }
 
-  alterModal(): void {
-    if(this.isModalOpen)
-    this.isModalOpen = false
-    else
-    this.isModalOpen = true;
+  alterModalInsert(): void {
+    this.isModalInsertOpen = !this.isModalInsertOpen
   }
 
   alterModalDelete():void{
-    if(this.isModalDeleteOpen)
-    this.isModalDeleteOpen = false 
-    else 
-    this.isModalDeleteOpen = true
+    this.isModalDeleteOpen = !this.isModalDeleteOpen
   }
 
   alterModalUpdate():void{
-    if(this.isModalUpdateOpen)
-    this.isModalUpdateOpen = false
-    else 
-    this.isModalUpdateOpen = true
+    this.isModalUpdateOpen = !this.isModalUpdateOpen
   }
 
   selectProduct(product: Product): void {
@@ -87,12 +77,12 @@ handleProductList($event: any) {
             this.filteredProducts = products;
             resolve(response)
           });
-          this.alterModal()
+          this.alterModalInsert()
         },
         error =>{
           reject(error)
           alert(error.error)
-          this.alterModal()
+          this.alterModalInsert()
 
         }
       )
@@ -146,20 +136,19 @@ alterProduct(){
         this.products = products
         this.filteredProducts = products
       });
-      this.alterModal()
+      this.alterModalInsert()
       
     },
     error =>{
       console.log(error)
       alert(error.error)
-      this.alterModal()
+      this.alterModalInsert()
     }
   )
   
 }
 
 handleUpdatedProduct($event: Product) {
-  alert("!!!!!!!!!!!")
   this.products.push($event)
   console.log($event)
 }

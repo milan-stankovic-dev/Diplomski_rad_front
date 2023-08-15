@@ -44,7 +44,7 @@
 </div>
 <div class="button-container bottom-div" >
   <button class="delete-button" (click)="alterModalDelete()">Delete</button>
-  <button class="insert-button" (click)="alterModal()">Insert</button>
+  <button class="insert-button" (click)="alterModalInsert()">Insert</button>
   <button class="update-button" (click)="updateSelectedProduct(selectedProduct)">Update</button>
 </div>
 
@@ -55,16 +55,14 @@
       
         <div class="container">
           <h1 class="title">Delete Product</h1>
-          <form [formGroup] = "insertForm">
-            
+          
             <div style="text-align: center;">
               <p>Are you sure you want to delete this product? This cannot be undone.</p>
-            
             <button class="delete-button" (click)="deleteProduct(selectedProduct)">Delete</button>
             <button class="button is-warning" (click)="alterModalDelete()">Cancel</button>
           </div>
 
-          </form>
+         
         </div>
       </div>
       </div>
@@ -80,7 +78,7 @@
 ></app-product-update>
  
 <app-product-update
-[isModalOpen]="isModalOpen"
+[isModalOpen]="isModalInsertOpen"
 [product]="{
   id: undefined,
   productName: '',

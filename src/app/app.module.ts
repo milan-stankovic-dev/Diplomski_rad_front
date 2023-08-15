@@ -17,7 +17,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ProductUpdateComponent } from './product-update/product-update.component';
+// import { ProductUpdateComponent } from './product-update/product-update.component';
 import { NoteComponent } from './goods-received-note/note/note.component';
 // import { ProductTableComponent } from './product-table/product-table.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -32,7 +32,7 @@ import { ProductDisplayComponent } from './product/product-display/product-displ
     FooterComponent,
     HomeComponent,
     LoginComponent,
-    ProductUpdateComponent,
+    // ProductUpdateComponent,
     NoteComponent,
     ProductDisplayComponent,
     BillOfLadingComponent,
