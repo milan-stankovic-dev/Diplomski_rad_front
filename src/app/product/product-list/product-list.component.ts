@@ -3,8 +3,7 @@ import { Product } from 'src/app/domain/Product';
 import { ProductService } from 'src/app/service/product.service';
 import { ProductType } from '../../domain/ProductType';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+
 
 @Component({
   selector: 'app-product-list',
@@ -12,6 +11,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
+handleProductList($event: any) {
+  alert("Success!")
+  alert(JSON.stringify($event))
+  this.products = $event
+  this.filteredProducts = $event
+}
   product: any = {}
   isModalOpen: boolean = false
   isModalDeleteOpen: boolean = false
@@ -21,52 +26,13 @@ export class ProductListComponent implements OnInit {
   selectedProduct: Product | null = null
   searchTerm = ''
   productTypes: string[] = Object.values(ProductType)
-
+  type: string = ''
   insertForm : FormGroup = new FormGroup({})
-  @Output() updatedProduct: Product;
+  @Output() reactiveProductList: Product[]
 
-  constructor(private productService: ProductService,
-              private formBuilder: FormBuilder) {}
+  constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
-    this.insertForm = this.formBuilder.group({
-      productName: ['', [
-        Validators.required,
-        Validators.nullValidator,
-      ]],
-      weight: [null,[
-        Validators.required,
-        Validators.nullValidator,
-        Validators.min(1),
-      ]],
-      fragile: [null,[
-        Validators.required,
-        Validators.nullValidator,
-      ]],
-      amount: [null,[
-        Validators.required,
-        Validators.nullValidator,
-        Validators.min(0)
-      ]],
-      productType: ['',[
-        Validators.required,
-        Validators.nullValidator,
-      ]],
-      price: ['',[
-        Validators.required,
-        Validators.nullValidator,
-        Validators.min(1),
-      ]]
-    })
-    this.insertForm.valueChanges.subscribe((formValues) => {
-      this.product.productName = formValues.productName;
-      this.product.weight = formValues.weight;
-      this.product.fragile = formValues.fragile;
-      this.product.amount = formValues.amount;
-      this.product.type = formValues.productType;
-      this.product.price = formValues.price;
-    });
-
     this.productService.getAllProducts().subscribe((products) => {
       console.log(products);
       this.products = products;
@@ -107,25 +73,31 @@ export class ProductListComponent implements OnInit {
     );
   }
 
-  submitProduct(): void {
+  submitProduct(): Promise<Product> {
+    return new Promise((resolve, reject) =>{
+      console.log('Submitted product:', JSON.stringify(this.product));
+      alert(JSON.stringify(this.product))
+      this.productService.insertProduct(this.product)
+      .subscribe(
+        response => {
+          alert("Saved in database!")
+          this.productService.getAllProducts().subscribe((products) => {
+            console.log(products);
+            this.products = products;
+            this.filteredProducts = products;
+            resolve(response)
+          });
+          this.alterModal()
+        },
+        error =>{
+          reject(error)
+          alert(error.error)
+          this.alterModal()
+
+        }
+      )
+    })
     
-    console.log('Submitted product:', JSON.stringify(this.product));
-    alert(JSON.stringify(this.product))
-    this.productService.insertProduct(this.product)
-    .subscribe(
-      response => {
-        alert("Saved in database!")
-        this.productService.getAllProducts().subscribe((products) => {
-          console.log(products);
-          this.products = products;
-          this.filteredProducts = products;
-        });
-        this.alterModal()
-      },
-      error =>{
-        alert(error.error)
-      }
-    )
   }
 
   deleteProduct(product: Product| null) {
@@ -151,7 +123,6 @@ export class ProductListComponent implements OnInit {
     )
     }
 
-
   updateSelectedProduct(selectedProduct: Product|null):void {
   if(selectedProduct === null){
     alert("Please select a product to update!")
@@ -159,6 +130,38 @@ export class ProductListComponent implements OnInit {
   } 
   this.alterModalUpdate()
   
+    }
+
+alterProduct(){
+  console.log('Submitted product:', JSON.stringify(this.product));
+  this.productService.updateProduct(this.product === null? null : this.product)
+  .subscribe(
+    response => {
+      alert("Updated in database!")
+      console.log(`RESPONSE FROM DB IS ${JSON.stringify(response)}`)
+      this.productService.getAllProducts().subscribe((products) => {
+        alert("RESPONSE CAME")
+        alert(JSON.stringify(products))
+        console.log(products);
+        this.products = products
+        this.filteredProducts = products
+      });
+      this.alterModal()
+      
+    },
+    error =>{
+      console.log(error)
+      alert(error.error)
+      this.alterModal()
+    }
+  )
+  
+}
+
+handleUpdatedProduct($event: Product) {
+  alert("!!!!!!!!!!!")
+  this.products.push($event)
+  console.log($event)
 }
 
 }

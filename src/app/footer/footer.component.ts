@@ -2,12 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
-  template: `
-    <div class="container content has-text-centered">
-      <p>Bottom text</p>
-    </div>
-  `,
-  styles: [
-  ]
+  templateUrl: './footer.component.html',
+  styleUrls: ['./footer.component.scss']
 })
-export class FooterComponent { }
+export class FooterComponent {
+
+}

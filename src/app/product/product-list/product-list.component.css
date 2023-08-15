@@ -49,7 +49,7 @@
     /* background-color: blue; */
   }
   
-  .search-container .search-label {
+  .search-container  {
     display: block;
     font-family: Arial, sans-serif;
     font-size: 20px;
@@ -119,4 +119,11 @@
 .body{
   background-image: url('../../../assets/image/products.jpg');
   background-size: cover;
+}
+
+.search-label{ 
+  background-color: antiquewhite;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 25px;
+  font-weight: bold;
 }

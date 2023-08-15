@@ -3,7 +3,7 @@
     <div class="modal-content has-background-white py-5 px-5">
       
         <div class="container">
-          <h1 class="title">Update Product</h1>
+          <h1 class="title">{{title}}</h1>
           <form [formGroup] = "insertForm">
             <!-- {{insertForm.value | json}} -->
             
@@ -29,8 +29,8 @@
                 <div class="select">
                   <select name="fragile" formControlName="fragile" required>
                     <option value="" disabled >Select an option</option>
-                    <option value="true" [selected]="product.fragile">True</option>
-                    <option value="false" [selected]="product.fragile">False</option>
+                    <option value="true">True</option>
+                    <option value="false">False</option>
                   </select>
                 </div>
               </div>
@@ -40,7 +40,7 @@
               <label class="label">Amount</label>
               <div class="control">
                 <input class="input" type="number"
-                [ngModel]="product.amount"
+                [(ngModel)]="product.amount"
                 value="ngModel" name="amount" formControlName="amount" required>
               </div>
             </div>
@@ -49,9 +49,9 @@
               <label class="label">Product Type</label>
               <div class="control">
                 <div class="select">
-                  <select name="product-type" formControlName="productType" required>
+                  <select name="product-type" formControlName="type" required>
                     <option value="" disabled selected>Select a type</option>
-                    <option *ngFor="let type of productTypes" [value]="type">{{ type }}</option>
+                    <option *ngFor="let productType of productTypes" [value]="productType">{{ productType }}</option>
                   </select>
                 </div>
               </div>
@@ -71,7 +71,7 @@
               </div>
               <div class="control">
                 <button class="button is-success"(click)="submitProduct()"
-                [disabled]="insertForm.invalid">Submit</button>
+                [disabled]="insertForm.invalid">{{buttonText}}</button>
               </div>
             </div>
           </form>

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Product } from '../domain/Product';
+import { Product } from 'src/app/domain/Product';
+// import { Product } from '../domain/Product';
 
 @Component({
   selector: 'app-product-display',

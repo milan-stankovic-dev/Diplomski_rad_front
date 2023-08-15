@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Product } from 'src/app/domain/Product';
 
 @Component({
   selector: 'app-product-insert-modal',
@@ -9,7 +10,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ProductInsertModalComponent {
   @Output() insertProduct = new EventEmitter<any>();
   @Output() close = new EventEmitter<void>();
-
+  @Input() title: string 
+  @Input() product:Product
+  @Input() buttonText: string
+  @Input() modalMethod: object
+  
   productForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {

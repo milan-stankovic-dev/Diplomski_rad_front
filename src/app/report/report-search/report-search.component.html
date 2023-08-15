@@ -37,7 +37,7 @@
 </div>
 
 <div class = "table-div">
-<table class="table is-bordered is-hoverable is-fullwidth custom-table">
+<table *ngIf="selectedReport; else infoMessage" class="table is-bordered is-hoverable is-fullwidth custom-table">
   <thead class="custom-table-head">
     <tr>
       <th>Ordinal No.</th>
@@ -64,3 +64,7 @@
 </table>
 <button routerLink="/report">Go back to report create</button>
 </div>
+
+<ng-template #infoMessage>
+  <h1>No reports selected</h1>
+</ng-template>
