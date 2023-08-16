@@ -68,3 +68,8 @@
 <ng-template #infoMessage>
   <h1>No reports selected</h1>
 </ng-template>
+
+<app-modal-message
+*ngIf="isModalMessageOpen"
+[displayMessage]="displayMessage"
+></app-modal-message>

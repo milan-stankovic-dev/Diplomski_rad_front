@@ -93,3 +93,8 @@ is-grouped field">
         </div>
         </div>
       </div>
+
+<app-modal-message
+*ngIf="isModalMessageOpen"
+[displayMessage]="displayMessage"
+></app-modal-message>

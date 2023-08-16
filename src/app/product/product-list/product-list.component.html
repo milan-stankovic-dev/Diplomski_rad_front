@@ -12,7 +12,7 @@
   <input type="text" id="search" [(ngModel)]="searchTerm" (input)="filterProducts()" class="search-input">
 </div>
 <div class = "table-div">
-<table *ngIf="filteredProducts.length >0; else noProducts" class="table is-bordered is-hoverable is-fullwidth custom-table">
+<table *ngIf="filteredProducts?.length >0; else noProducts" class="table is-bordered is-hoverable is-fullwidth custom-table">
   <thead>
     <tr>
       <th>ID</th>
@@ -94,7 +94,11 @@
 (updatedProduct)="handleUpdatedProduct($event)"
 ></app-product-update>
 
-<!-- <ng-template #no-products>There are no such products.</ng-template> -->
+<app-modal-message
+*ngIf="isModalMessageOpen"
+[displayMessage]="messageToDisplay"
+(modalClosed)="handleMessageDisplayClosedEvent($event)"
+></app-modal-message>
 
 <ng-template #noProducts>
   <h1>There are no products to display.</h1>

@@ -26,7 +26,8 @@ export class ReportCreateComponent implements OnInit{
     selectedItem: ReportItem
     selectedItemIndex: number
     singleCap: number
-
+    displayMessage: string = ''
+    isModalMessageOpen: boolean = false
     // dummy: any
     // filterReports():void{
 
@@ -36,15 +37,18 @@ export class ReportCreateComponent implements OnInit{
 
     insertReport(report:Report):void{
       if(report === null || report.reportItems.length === 0){
-        alert("Report cannot be created. There are no items.")
+        // alert("Report cannot be created. There are no items.")
+        this.alterMessageModal("Report cannot be created. There are no items.")
         return
       }
 
       this.reportService.insertReport(report).subscribe((response)=>{
-        alert("Report inserted successfully!")
+        this.alterMessageModal("Report inserted successfully!")
+        // alert("Report inserted successfully!")
       },
       error=>{
-        alert(error.error)
+        // alert(error.error)
+        this.alterMessageModal(error.error)
         console.log(error)
       })
     }
@@ -82,7 +86,8 @@ export class ReportCreateComponent implements OnInit{
       },
       error => {
         console.log(error)
-        alert(error.error)
+        // alert(error.error)
+        this.alterMessageModal(error.error)
       }
       )
 
@@ -119,16 +124,14 @@ export class ReportCreateComponent implements OnInit{
   } 
 
   openCapacityUpdateModal():void{
-    if(this.isCapacityModal)
-    this.isCapacityModal = false
-    else 
-    this.isCapacityModal = true
+    this.isCapacityModal = !this.isCapacityModal
   }
 
   commitToGlobalChangeInCapacity(value: number){
     for(const item of this.newReport.reportItems){
       if(item.product.amount>value){
-        alert("Given capacity too low.")
+        // alert("Given capacity too low.")
+        this.alterMessageModal("Given capacity too low.")
         return;
       }
       item.productCapacity = this.calcTotalAvailableCapacityForProduct(item.product,value)
@@ -139,15 +142,11 @@ export class ReportCreateComponent implements OnInit{
   }
 
   alterCapacityModal():void{
-    if(this.isCapacityModal)
-    this.isCapacityModal = false
-    else this.isCapacityModal = true
+   this.isCapacityModal = !this.isCapacityModal
   }
 
   alterSingleChangeModal():void{
-    if(this.isSingleChangeModal)
-    this.isSingleChangeModal = false
-    else this.isSingleChangeModal = true
+   this.isSingleChangeModal = !this.isSingleChangeModal
   }
 
   changeSingleProductCapacity(item: ReportItem): void{
@@ -170,4 +169,10 @@ export class ReportCreateComponent implements OnInit{
 
     this.alterSingleChangeModal()
   }
+
+  alterMessageModal(message: string){
+    this.displayMessage = message
+    this.isModalMessageOpen = !this.isModalMessageOpen
+  }
+
 }

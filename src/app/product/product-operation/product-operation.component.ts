@@ -23,6 +23,8 @@ export class ProductUpdateComponent implements OnInit{
   @Input() modalMethod: ()=>any
   type: string = ''
   @Output() products: EventEmitter<Product[]> = new EventEmitter()
+  messageToDisplay: string = ''
+  isModalMessageOpen: boolean = false
 
   constructor(private productService: ProductService,
     private formBuilder: FormBuilder) {}
@@ -66,10 +68,20 @@ export class ProductUpdateComponent implements OnInit{
   if (this.modalMethod) {
     this.modalMethod().then(response => {
       this.updatedProduct.emit(response);
+      this.alterModalMessage(`${this.buttonText} completed.`)
     }).catch(error => {
       console.error(error);
-      // Handle error if needed
+      this.alterModalMessage(error.error)
     });
   }
+}
+
+alterModalMessage(message: string){
+  this.messageToDisplay = message
+  this.isModalMessageOpen = !this.isModalMessageOpen
+}
+
+handleMessageDisplayClosedEvent($event: any):void{
+  this.isModalMessageOpen = $event
 }
 }

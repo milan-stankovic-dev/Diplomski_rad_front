@@ -15,10 +15,13 @@ export class ReportSearchComponent implements OnInit{
   reportList: Report[]
   selectedReport: Report | null = null
   foundReportsList: Report[]
+  isModalMessageOpen: boolean = false;
+  displayMessage: string;
 
   findReportsByDate(dateForSearch: Date):void{
     if(dateForSearch === undefined){
-      alert("Please input a valid date for search.")
+      // alert("Please input a valid date for search.")
+      this.alterMessageModal("Please input a valid date for search.")
       return;
     }
     let foundReports: Report[] = []
@@ -31,10 +34,12 @@ export class ReportSearchComponent implements OnInit{
     this.foundReportsList = foundReports
     
     if(foundReports.length === 0){
-      alert("No reports found for your query!")
+      // alert("No reports found for your query!")
+      this.alterMessageModal("No reports found for your query!")
     }else{
       this.selectedReport = foundReports[0];
-      alert(`found ${foundReports.length} reports for your query!`)
+      // alert(`found ${foundReports.length} reports for your query!`)
+      this.alterMessageModal(`Number of found reports for this date: ${foundReports.length}`)
     }
   }
   
@@ -55,9 +60,15 @@ ngOnInit(): void {
     console.log(reports)
   },
   error=>{
-    alert(error.error)
+    // alert(error.error)
+    this.alterMessageModal(error.error)
     console.log(error)
   })
+}
+
+alterMessageModal(message: string):void{
+  this.displayMessage = message
+  this.isModalMessageOpen = !this.isModalMessageOpen
 }
 
 }

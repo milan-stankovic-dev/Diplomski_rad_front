@@ -9,19 +9,24 @@ import { ProductUpdateComponent } from './product-operation/product-operation.co
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { ProductInsertModalComponent } from './product-insert/product-insert-modal.component';
 import { ProductRoutingModule } from './product-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   declarations: [
     ProductListComponent,
-    ProductUpdateComponent
-    // ProductInsertModalComponent,
+    ProductUpdateComponent,
+
   ],
   imports: [
     CommonModule,
     FormsModule,
     ProductRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
+  ],
+  exports:[
+    // ModalMessageComponent
   ]
 })
 export class ProductModule { }

@@ -79,3 +79,9 @@
       </div>
       </div>
     </div>
+
+<app-modal-message
+*ngIf="isModalMessageOpen"
+[displayMessage]="messageToDisplay"
+(modalClosed)="handleMessageDisplayClosedEvent($event)"
+></app-modal-message>

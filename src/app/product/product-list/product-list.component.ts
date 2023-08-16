@@ -11,8 +11,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
+
 handleProductList($event: any) {
-  alert("Success!")
   alert(JSON.stringify($event))
   this.products = $event
   this.filteredProducts = $event
@@ -26,9 +26,10 @@ handleProductList($event: any) {
   selectedProduct: Product | null = null
   searchTerm = ''
   productTypes: string[] = Object.values(ProductType)
-
+  isModalMessageOpen: boolean = false
   @Output() reactiveProductList: Product[]
-
+  messageToDisplay: string = ''
+  
   constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
@@ -44,6 +45,9 @@ handleProductList($event: any) {
   }
 
   alterModalDelete():void{
+    if(this.selectedProduct== null || this.selectProduct== undefined){
+      this.alterModalMessage("Please select a product for deletion.")
+    }else
     this.isModalDeleteOpen = !this.isModalDeleteOpen
   }
 
@@ -63,94 +67,98 @@ handleProductList($event: any) {
     );
   }
 
-  submitProduct(): Promise<Product> {
+  submitProduct(): Promise<Product[]> {
     return new Promise((resolve, reject) =>{
       console.log('Submitted product:', JSON.stringify(this.product));
-      alert(JSON.stringify(this.product))
       this.productService.insertProduct(this.product)
       .subscribe(
         response => {
-          alert("Saved in database!")
           this.productService.getAllProducts().subscribe((products) => {
             console.log(products);
             this.products = products;
             this.filteredProducts = products;
-            resolve(response)
+            resolve(products)
           });
-          this.alterModalInsert()
         },
         error =>{
           reject(error)
-          alert(error.error)
-          this.alterModalInsert()
-
         }
       )
     })
-    
   }
 
   deleteProduct(product: Product| null) {
     if(product === null){
       this.alterModalDelete();
-      alert("Please select a product for deletion.")
+
       return;
     }
     this.productService.deleteProduct(this.selectedProduct === null? null : this.selectedProduct.id)
     .subscribe(
       response=>{
-        alert("Deleted product")
+        this.alterModalMessage("Deleted product")
         this.productService.getAllProducts().subscribe((products) => {
           console.log(products);
           this.products = products;
           this.filteredProducts = products;
+          this.selectedProduct = undefined
         });
         this.alterModalDelete()
       },
       error=>{
-        alert(error.error)
+        this.alterModalMessage(error.error)
       }
     )
     }
 
   updateSelectedProduct(selectedProduct: Product|null):void {
   if(selectedProduct === null){
-    alert("Please select a product to update!")
+    this.alterModalMessage("Please select a product to update!")
     return;
   } 
   this.alterModalUpdate()
   
     }
 
-alterProduct(){
-  console.log('Submitted product:', JSON.stringify(this.product));
-  this.productService.updateProduct(this.product === null? null : this.product)
-  .subscribe(
-    response => {
-      alert("Updated in database!")
-      console.log(`RESPONSE FROM DB IS ${JSON.stringify(response)}`)
-      this.productService.getAllProducts().subscribe((products) => {
-        alert("RESPONSE CAME")
-        alert(JSON.stringify(products))
-        console.log(products);
-        this.products = products
-        this.filteredProducts = products
-      });
-      this.alterModalInsert()
-      
-    },
-    error =>{
-      console.log(error)
-      alert(error.error)
-      this.alterModalInsert()
-    }
-  )
+alterProduct(): Promise<Product[]>{
+  return new Promise((resolve,reject)=>{
+    console.log('Submitted product:', JSON.stringify(this.product));
+    this.productService.updateProduct(this.product === null? null : this.product)
+    .subscribe(
+      response => {
+        console.log(`RESPONSE FROM DB IS ${JSON.stringify(response)}`)
+        this.productService.getAllProducts().subscribe((products) => {
+          console.log(products);
+          this.products = products
+          this.filteredProducts = products
+          resolve(products)
+        });
+      },
+      error =>{
+        console.log(error)
+        reject(error)
+      }
+    )
+  })
   
 }
 
-handleUpdatedProduct($event: Product) {
-  this.products.push($event)
+handleUpdatedProduct($event: any) {
+  // this.products.push($event)
   console.log($event)
+  this.products = $event
+  this.filteredProducts = $event
+  this.isModalInsertOpen = false
+  this.isModalUpdateOpen = false
+}
+
+alterModalMessage(message: string){
+  this.messageToDisplay = message
+  this.isModalMessageOpen = !this.isModalMessageOpen
+}
+
+handleMessageDisplayClosedEvent($event: any) {
+  this.isModalMessageOpen = $event
 }
 
 }

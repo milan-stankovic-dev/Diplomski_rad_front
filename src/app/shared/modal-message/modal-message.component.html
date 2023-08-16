@@ -1,0 +1,16 @@
+<div class = "modal is-active" *ngIf="isModalOpen">
+    <div class = "modal-background">
+    <div class="modal-content has-background-white py-5 px-5">
+      <h1 class="title">Info Message</h1>
+        <div class="container">
+          <form>
+              <p class="info-p">{{displayMessage}}</p>
+              <div style="text-align: center;">
+            <button class="button is-warning" (click)="alterModalState()">Okay</button>
+          </div>
+
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
