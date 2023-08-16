@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Firm } from 'src/app/domain/Firm';
-import { GoodsReceivedNote } from 'src/app/domain/GoodsReceivedNote';
-import { GoodsReceivedNoteItem } from 'src/app/domain/GoodsReceivedNoteItem';
-import { Partner } from 'src/app/domain/Partner';
 import { Product } from 'src/app/domain/Product';
 import { FirmService } from 'src/app/service/firm.service';
-import { GoodsReceivedNoteService } from 'src/app/service/goods-received-note.service';
-import { PartnerService } from 'src/app/service/partner.service';
 import { ProductService } from 'src/app/service/product.service';
 import { LegalPerson } from '../domain/LegalPerson';
 import { NaturalPerson } from '../domain/NaturalPerson';
@@ -40,6 +35,8 @@ export class BillOfLadingComponent implements OnInit{
   selectedNaturalPerson: NaturalPerson
   selectedLegalPerson: LegalPerson
   isNaturalPersonSelected: boolean = true
+  isModalMessageOpen: boolean = false;
+  displayMessage: string = ''
 
   constructor(private productService: ProductService,
     private legalPersonService: LegalPersonService, 
@@ -52,7 +49,8 @@ export class BillOfLadingComponent implements OnInit{
       this.products = products
     },
     error=>{
-      alert(error.error)
+      // alert(error.error)
+      this.alterModalMessage(error.error)
       console.log(error)
     }
     )
@@ -60,7 +58,8 @@ export class BillOfLadingComponent implements OnInit{
       this.firms = firms
     },
     error=>{
-      alert(error.error)
+      // alert(error.error)
+      this.alterModalMessage(error.error)
       console.log(error)
     }
     )
@@ -68,7 +67,8 @@ export class BillOfLadingComponent implements OnInit{
       this.naturalPersons = persons
     },
     error=>{
-      alert(error.error)
+      // alert(error.error)
+      this.alterModalMessage(error.error)
       console.log(error)
     }
     )
@@ -76,7 +76,8 @@ export class BillOfLadingComponent implements OnInit{
       this.legalPersons = persons
     },
     error=>{
-      alert(error.error)
+      // alert(error.error)
+      this.alterModalMessage(error.error)
       console.log(error)
     }
     )
@@ -84,12 +85,14 @@ export class BillOfLadingComponent implements OnInit{
 
   addNewItem(productToAdd: Product): void {
     if (!productToAdd) {
-      alert("Please select a valid product to add as a note item.");
+      // alert("Please select a valid product to add as a note item.");
+      this.alterModalMessage("Please select a valid product to add as a note item.")
       return;
     }
   
     if (this.contains(productToAdd, this.billOfLadingItems)) {
-      alert("Product item already exists in the list.");
+      // alert("Product item already exists in the list.");
+      this.alterModalMessage("Product item already exists in the list.")
     } else {
       const itemToAdd: BillOfLadingItem = {
         id: 0,
@@ -97,7 +100,8 @@ export class BillOfLadingComponent implements OnInit{
         product: productToAdd
       };
       this.billOfLadingItems.push(itemToAdd);
-      alert("Product added successfully.");
+      // alert("Product added successfully.");
+      this.alterModalMessage("Product added successfully.")
     }
   }
   
@@ -112,11 +116,13 @@ export class BillOfLadingComponent implements OnInit{
 
   deleteSelectedItem(selectedItem: BillOfLadingItem) {
     if(selectedItem === undefined){
-      alert("Please select an item to delete.")
+      // alert("Please select an item to delete.")
+      this.alterModalMessage("Please select an item to delete.")
       return;
     }
     this.billOfLadingItems.splice(this.billOfLadingItems.indexOf(selectedItem),1)
-    alert("Item removed successfully!")
+    // alert("Item removed successfully!")
+    this.alterModalMessage("Item removed successfully!")
     this.totalCost = this.calculateTotalCost()
     this.selectedItem = undefined
   }
@@ -156,7 +162,8 @@ export class BillOfLadingComponent implements OnInit{
       this.insertBill(bill)
 
     }catch(error){
-      alert(error)
+      // alert(error)
+      this.alterModalMessage(error)
     }
   }
 
@@ -165,11 +172,13 @@ export class BillOfLadingComponent implements OnInit{
     // alert(JSON.stringify(bill))
     this.billService.insertBill(bill).subscribe(
       response=>{
-        alert("Bill successfully inserted!")
+        // alert("Bill successfully inserted!")
+        this.alterModalMessage("Bill successfully inserted!")
         console.log(response)
       },
       error => {
-        alert(error.error)
+        // alert(error.error)
+        this.alterModalMessage(error.error)
         console.log(error)
       }
     )
@@ -233,4 +242,12 @@ export class BillOfLadingComponent implements OnInit{
     this.isNaturalPersonSelected = true
   }
     
+  alterModalMessage(message : string): void{
+    this.displayMessage = message
+    this.isModalMessageOpen = !this.isModalMessageOpen
+  }
+
+  handleModalClosedEvent($event: boolean) {
+    this.isModalMessageOpen = $event
+  }
 }

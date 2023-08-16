@@ -21,6 +21,7 @@ import { NoteComponent } from './goods-received-note/note/note.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BillOfLadingComponent } from './bill-of-lading/bill-of-lading.component';
 import { ProductDisplayComponent } from './product/product-display/product-display.component';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { ProductDisplayComponent } from './product/product-display/product-displ
     MatChipsModule,
     MatCheckboxModule,
     BsDatepickerModule.forRoot(),
+    SharedModule
   ],
   providers: [{
     useClass: AuthInterceptor,

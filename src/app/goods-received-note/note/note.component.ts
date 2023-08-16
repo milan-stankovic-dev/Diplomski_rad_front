@@ -15,6 +15,7 @@ import { ProductService } from 'src/app/service/product.service';
   styleUrls: ['./note.component.scss']
 })
 export class NoteComponent implements OnInit{
+
   products: Product[]
   partners: Partner[]
   firms: Firm[]
@@ -29,6 +30,8 @@ export class NoteComponent implements OnInit{
   newNote: GoodsReceivedNote
   selectedFirm: Firm
   selectedPartner: Partner
+  isModalMessageOpen: boolean = false
+  displayMessage: string = ''
 
   constructor(private productService: ProductService,
     private partnerService: PartnerService, 
@@ -40,7 +43,8 @@ export class NoteComponent implements OnInit{
       this.products = products
     },
     error=>{
-      alert(error.error)
+      // alert(error.error)
+      this.alterMessageModalOpen(error.error)
       console.log(error)
     }
     )
@@ -48,7 +52,8 @@ export class NoteComponent implements OnInit{
       this.firms = firms
     },
     error=>{
-      alert(error.error)
+      // alert(error.error)
+      this.alterMessageModalOpen(error.error)
       console.log(error)
     }
     )
@@ -56,7 +61,8 @@ export class NoteComponent implements OnInit{
       this.partners = partners
     },
     error=>{
-      alert(error.error)
+      // alert(error.error)
+      this.alterMessageModalOpen(error.error)
       console.log(error)
     }
     )
@@ -65,12 +71,14 @@ export class NoteComponent implements OnInit{
 
   addNewItem(productToAdd: Product): void {
     if (!productToAdd) {
-      alert("Please select a valid product to add as a note item.");
+      // alert("Please select a valid product to add as a note item.");
+      this.alterMessageModalOpen("Please select a valid product to add as a note item.")
       return;
     }
   
     if (this.contains(productToAdd, this.goodsReceivedNoteItems)) {
-      alert("Product item already exists in the list.");
+      // alert("Product item already exists in the list.");
+      this.alterMessageModalOpen("Product item already exists in the list.")
     } else {
       const itemToAdd: GoodsReceivedNoteItem = {
         id: 0,
@@ -78,7 +86,8 @@ export class NoteComponent implements OnInit{
         product: productToAdd
       };
       this.goodsReceivedNoteItems.push(itemToAdd);
-      alert("Product added successfully.");
+      // alert("Product added successfully.");
+      this.alterMessageModalOpen("Product added successfully.")
     }
   }
   
@@ -87,33 +96,19 @@ export class NoteComponent implements OnInit{
     return arrayOfItems.some(item => item.product.id === product.id);
   }
   
-
-  // productsEqual(product1: Product, product2: Product):boolean{
-  //   alert("Product 1: " + product1)
-  //   alert("Product 2: " + product2)
-  //     if(product1.productName === product2.productName &&
-  //       product1.amount === product2.amount && product1.price === product2.price &&
-  //       product1.type === product2.type && product1.fragile === product2.fragile &&
-  //       product1.weight === product2.weight){
-  //         alert("Product 1 name: " + product1.productName)
-  //         alert("Product 2 name: " + product2.productName)
-  //         alert("Products equal... satisfied that " + JSON.stringify(product1)
-  //         + " and " + JSON.stringify(product2) + " are equal!")
-  //       return true 
-  //       }
-  //       return false  
-  // }
   selectItem(selectedItem: GoodsReceivedNoteItem) {
     this.selectedItem = selectedItem
   }
 
   deleteSelectedItem(selectedItem: GoodsReceivedNoteItem) {
     if(selectedItem === undefined){
-      alert("Please select an item to delete.")
+      // alert("Please select an item to delete.")
+      this.alterMessageModalOpen("Please select an item to delete.")
       return;
     }
     this.goodsReceivedNoteItems.splice(this.goodsReceivedNoteItems.indexOf(selectedItem),1)
-    alert("Item removed successfully!")
+    // alert("Item removed successfully!")
+    this.alterMessageModalOpen("Item removed successfully!")
     this.totalCost = this.calculateTotalCost()
     this.selectedItem = undefined
   }
@@ -152,20 +147,23 @@ export class NoteComponent implements OnInit{
       this.insertNote(note)
 
     }catch(error){
-      alert(error)
+      // alert(error)
+      this.alterMessageModalOpen(error)
     }
   }
 
   insertNote(note: GoodsReceivedNote):void {
     console.log(note)
-    alert(JSON.stringify(note))
+    // alert(JSON.stringify(note))
     this.noteService.insertNote(note).subscribe(
       response=>{
-        alert("Note successfully inserted!")
+        // alert("Note successfully inserted!")
+        this.alterMessageModalOpen("Note successfully inserted!")
         console.log(response)
       },
       error => {
-        alert(error.error)
+        // alert(error.error)
+        this.alterMessageModalOpen(error.error)
         console.log(error)
       }
     )
@@ -218,6 +216,13 @@ export class NoteComponent implements OnInit{
     throw new Error('Please input products for ordering before saving your goods received note.');
   }
 
-  
+  alterMessageModalOpen(message:string):void{
+    this.displayMessage = message
+    this.isModalMessageOpen = !this.isModalMessageOpen
+  }
+
+  handleModalClosedEvent($event: any) {
+    this.isModalMessageOpen = $event
+  }
     
 }

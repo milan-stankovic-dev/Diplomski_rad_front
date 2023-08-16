@@ -3,10 +3,7 @@ import { Product } from 'src/app/domain/Product';
 import { Report } from 'src/app/domain/Report';
 import { ReportItem } from 'src/app/domain/ReportItem';
 import { ProductService } from 'src/app/service/product.service';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { ReportService } from 'src/app/service/report.service';
-
-// import { NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-report-create',
@@ -14,7 +11,7 @@ import { ReportService } from 'src/app/service/report.service';
   styleUrls: ['./report-create.component.scss']
 })
 export class ReportCreateComponent implements OnInit{
-    // isInsertModal: boolean = false
+
     newReport: Report
     reports: Report[]
     searchDate: Date
@@ -175,4 +172,7 @@ export class ReportCreateComponent implements OnInit{
     this.isModalMessageOpen = !this.isModalMessageOpen
   }
 
+  handleModalClosedEvent($event: any) {
+    this.isModalMessageOpen = $event
+  }
 }

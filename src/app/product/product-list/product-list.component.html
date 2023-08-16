@@ -27,8 +27,6 @@
   <tbody>
     <tr [style.border]="selectedProduct===product ? '5px solid #2e7d32' : 'none'"
      *ngFor="let product of filteredProducts; let i = index" (click) = "selectProduct(product)">
-    <!-- <tr [style.border]="selectedProduct ? '5px solid #2e7d32' : 'none'"
-     *ngFor="let product of filteredProducts" (click)="selectProduct(product)"> -->
       <td>{{ product.id }}</td>
       <td>{{ product.productName }}</td>
       <td>{{ product.weight }}</td>
@@ -36,8 +34,6 @@
       <td>{{ product.amount }}</td>
       <td>{{ product.type }}</td>
       <td>{{ product.price }}</td>
-      <!-- <td><button >Update</button></td> -->
-      <!-- <td><button >Delete</button></td> -->
     </tr>
   </tbody>
 </table>
@@ -101,5 +97,5 @@
 ></app-modal-message>
 
 <ng-template #noProducts>
-  <h1>There are no products to display.</h1>
+  <h1 id="no-products-message">There are no products to display.</h1>
 </ng-template>

@@ -127,3 +127,9 @@
   font-size: 25px;
   font-weight: bold;
 }
+
+#no-products-message{
+  font-weight: bold;
+  color: red;
+  font-size: 30px;
+}

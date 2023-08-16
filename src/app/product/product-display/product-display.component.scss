@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-around;
     align-items: stretch;
-
+    margin-left: 30px
 }
 
 .child-container {
@@ -17,8 +17,8 @@
 }
 
 #component-div{
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 40px;
+    margin-right: 40px;
     border: 1px solid lightgray;
     border-radius: 5px;
     background-color: rgba(245, 245, 245, 0.5);
@@ -26,8 +26,10 @@
     margin-top: 20px;
     
 }
-
-#template{
-    text-align: center !important;
+.no-data-template{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
 }
-

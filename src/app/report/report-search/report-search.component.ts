@@ -71,4 +71,8 @@ alterMessageModal(message: string):void{
   this.isModalMessageOpen = !this.isModalMessageOpen
 }
 
+handleModalClosedEvent($event: any) {
+  this.isModalMessageOpen = $event
+  }
+  
 }
