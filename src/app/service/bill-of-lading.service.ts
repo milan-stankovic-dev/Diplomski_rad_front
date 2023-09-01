@@ -13,6 +13,8 @@ export class BillOfLadingService {
   constructor(private http:HttpClient){}
 
   insertBill(bill:BillOfLading):Observable<BillOfLading>{
+    alert(JSON.stringify(bill))
+    console.log(JSON.stringify(bill))
     return this.http.post<BillOfLading>(`${this.apiUrl}`, bill)
   }
 }

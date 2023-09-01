@@ -1,87 +1,83 @@
-<div class = "modal is-active" *ngIf="isModalOpen">
-    <div class = "modal-background">
-    <div class="modal-content has-background-white py-5 px-5">
-      
-        <div class="container">
-          <h1 class="title">{{title}}</h1>
-          <form [formGroup] = "insertForm">
-            <!-- {{insertForm.value | json}} -->
-            
-            <div class="field">
-              <label class="label">Product Name</label>
-              <div class="control">
-                <input class="input" type="text"
-                [(ngModel)]="product.productName" value="ngModel" name="product-name" formControlName ="productName" required>
-              </div>
-            </div>
-      
-            <div class="field">
-              <label class="label">Weight (g)</label>
-              <div class="control">
-                <input class="input" type="number"
-                [(ngModel)]="product.weight" value="ngModel"name="weight" formControlName = "weight" required>
-              </div>
-            </div>
-      
-            <div class="field">
-              <label class="label">Fragile</label>
-              <div class="control">
-                <div class="select">
-                  <select name="fragile" formControlName="fragile" required>
-                    <option value="" disabled >Select an option</option>
-                    <option value="true">True</option>
-                    <option value="false">False</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-      
-            <div class="field">
-              <label class="label">Amount</label>
-              <div class="control">
-                <input class="input" type="number"
-                [(ngModel)]="product.amount"
-                value="ngModel" name="amount" formControlName="amount" required>
-              </div>
-            </div>
-      
-            <div class="field">
-              <label class="label">Product Type</label>
-              <div class="control">
-                <div class="select">
-                  <select name="product-type" formControlName="type" required>
-                    <option value="" disabled selected>Select a type</option>
-                    <option *ngFor="let productType of productTypes" [value]="productType">{{ productType }}</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-      
-            <div class="field">
-              <label class="label">Price (in RSD)</label>
-              <div class="control">
-                <input class="input" type="number" 
-                [(ngModel)]="product.price" name="price" formControlName="price" required>
-              </div>
-            </div>
-      
-            <div class="field is-grouped" style="text-align: center;">
-              <div class="control">
-                <button class="button is-warning"(click)="alterModal()">Cancel</button>
-              </div>
-              <div class="control">
-                <button class="button is-success"(click)="submitProduct()"
-                [disabled]="insertForm.invalid">{{buttonText}}</button>
-              </div>
-            </div>
-          </form>
+<div class="modal is-active" *ngIf="isModalOpen">
+  <div class="modal-background"></div>
+  <div class="modal-content has-background-white py-5 px-5">
+    <div class="container">
+      <h1 class="title">{{ title }}</h1>
+      <form [formGroup]="insertForm">
+
+        <div class="field">
+          <label class="label">Product Name</label>
+          <div class="control">
+            <input class="input" type="text" formControlName="productName" required>
+          </div>
         </div>
-      </div>
-      </div>
+
+        <div class="field">
+          <label class="label">Weight (g)</label>
+          <div class="control">
+            <input class="input" type="number" formControlName="weight" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Fragile</label>
+          <div class="control">
+            <div class="select">
+              <select formControlName="fragile" required>
+                <option value="" disabled [selected]="buttonText==='Insert'">Select an option</option>
+                <option value="true">True</option>
+                <option value="false">False</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Amount</label>
+          <div class="control">
+            <input class="input" type="number" formControlName="amount" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Product Type</label>
+          <div class="control">
+            <div class="select">
+              <select formControlName="type" required>
+                <option value="" disabled>Select a type</option>
+                <option *ngFor="let productType of productTypes" [value]="productType">
+                  {{ productType }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Price (in RSD)</label>
+          <div class="control">
+            <input class="input" type="number" formControlName="price" required>
+          </div>
+        </div>
+
+        <div class="field is-grouped" style="text-align: center;">
+          <div class="control">
+            <button class="button is-warning" (click)="alterModal()">Cancel</button>
+          </div>
+          <div class="control">
+            <button class="button is-success" (click)="submitProduct()" [disabled]="insertForm.invalid">
+              {{ buttonText }}
+            </button>
+          </div>
+        </div>
+
+      </form>
     </div>
+  </div>
+</div>
 
 <app-modal-message
-*ngIf="isModalMessageOpen"
-[displayMessage]="messageToDisplay"
-(modalClosed)="handleMessageDisplayClosedEvent($event)"
-></app-modal-message>
+  *ngIf="isModalMessageOpen"
+  [displayMessage]="messageToDisplay"
+  (modalClosed)="handleMessageDisplayClosedEvent($event)">
+</app-modal-message>

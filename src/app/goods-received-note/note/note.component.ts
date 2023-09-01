@@ -185,6 +185,12 @@ export class NoteComponent implements OnInit{
     this.totalCostIsNotZero()
     this.allFieldsAreSet()
     this.datesAreWellSet()
+    this.dueDateSetAfterSysdate()
+  }
+  dueDateSetAfterSysdate():void {
+    if(this.selectedDueDate < new Date()){
+      throw new Error('Due date must be set in the future')
+    }
   }
   datesAreWellSet() {
     if(this.selectedIssueDate === undefined ||

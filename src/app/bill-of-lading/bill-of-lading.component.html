@@ -12,7 +12,7 @@
     <br>
     <select [disabled]="!isNaturalPersonSelected" id="natural-person-list" [(ngModel)]="selectedNaturalPerson">
         <option value="" disabled selected>Select a Natural Person</option>
-        <option *ngFor="let person of naturalPersons" [ngValue]="person">{{person | json}}</option>
+        <option *ngFor="let person of naturalPersons" [ngValue]="person">{{person.name + " " + person.lastName}}</option>
     </select>
     <button (click)="personTypeSwitch()">Switch state</button>
     <select [disabled]="isNaturalPersonSelected" id="legal-person-list" [(ngModel)]="selectedLegalPerson">

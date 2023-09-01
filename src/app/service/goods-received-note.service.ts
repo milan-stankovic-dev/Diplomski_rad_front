@@ -12,6 +12,8 @@ export class GoodsReceivedNoteService {
   constructor(private http:HttpClient){}
 
   insertNote(note:GoodsReceivedNote):Observable<GoodsReceivedNote>{
+    alert(JSON.stringify(note))
+    console.log(JSON.stringify(note))
     return this.http.post<GoodsReceivedNote>(`${this.apiUrl}`, note)
   }
 }

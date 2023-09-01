@@ -3,7 +3,7 @@ import { Product } from 'src/app/domain/Product';
 import { ProductService } from 'src/app/service/product.service';
 import { ProductType } from '../../domain/ProductType';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-product-list',
@@ -113,7 +113,8 @@ handleProductList($event: any) {
 
   updateSelectedProduct(selectedProduct: Product|null):void {
   if(selectedProduct === null){
-    this.alterModalMessage("Please select a product to update!")
+    this.alterModalMessage("Please select a product to update.")
+    //Please select a product to update!
     return;
   } 
   this.alterModalUpdate()

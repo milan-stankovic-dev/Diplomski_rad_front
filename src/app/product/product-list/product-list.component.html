@@ -33,7 +33,8 @@
       <td>{{ product.fragile }}</td>
       <td>{{ product.amount }}</td>
       <td>{{ product.type }}</td>
-      <td>{{ product.price }}</td>
+      <td>{{ product.price | number:'1.2-2' }} RSD</td>
+
     </tr>
   </tbody>
 </table>
