@@ -22,6 +22,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BillOfLadingComponent } from './bill-of-lading/bill-of-lading.component';
 import { ProductDisplayComponent } from './product/product-display/product-display.component';
 import { SharedModule } from './shared/shared.module';
+import { RegisterComponent } from './register/register.component';
+import { VerificationComponent } from './verification/verification.component';
+// import { VerificatoinComponent } from './verificatoin/verificatoin.component';
 
 
 @NgModule({
@@ -34,6 +37,9 @@ import { SharedModule } from './shared/shared.module';
     NoteComponent,
     ProductDisplayComponent,
     BillOfLadingComponent,
+    RegisterComponent,
+    VerificationComponent,
+    // VerificatoinComponent,
   ],
   imports: [
     BrowserModule,

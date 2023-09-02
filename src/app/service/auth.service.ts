@@ -5,6 +5,9 @@ import { catchError, tap } from 'rxjs/operators';
 import { AuthRequest } from '../userUtils/auth-request';
 import { AuthResponse } from '../userUtils/auth-response';
 import { Router } from '@angular/router';
+import { RegistrationRequest } from '../domain/RegistrationRequest';
+import { User } from '../domain/User';
+import { LoginRequest } from '../domain/LoginRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -84,6 +87,18 @@ export class AuthService {
     } catch (error) {
       return null; // Invalid token format or decoding error
     }
+  }
+
+  register(request: RegistrationRequest):Observable<AuthResponse>{
+    return this.http.post<AuthResponse>(`${this.url}/user/register`, request)
+  }
+
+  verifyToken(token:string, user:LoginRequest):Observable<Boolean>{
+    return this.http.post<Boolean>(`${this.url}/user/verify-token/${token}`,user)
+  }
+
+  resendEmail(request:RegistrationRequest):Observable<any>{
+    return this.http.post<any>(`${this.url}/user/resend-email`,request)
   }
 }
   
