@@ -25,33 +25,63 @@
             <div class="select">
               <select formControlName="fragile" required>
                 <option value="" disabled [selected]="buttonText==='Insert'">Select an option</option>
-                <option value="true">True</option>
-                <option value="false">False</option>
+                <option value=true>True</option>
+                <option value=false>False</option>
               </select>
             </div>
           </div>
         </div>
 
         <div class="field">
-          <label class="label">Amount</label>
+          <label class="label">Current Stock</label>
           <div class="control">
             <input class="input" type="number" formControlName="amount" required>
           </div>
         </div>
 
         <div class="field">
-          <label class="label">Product Type</label>
+          <label class="label">Minimal Stock</label>
           <div class="control">
-            <div class="select">
-              <select formControlName="type" required>
-                <option value="" disabled>Select a type</option>
-                <option *ngFor="let productType of productTypes" [value]="productType">
-                  {{ productType }}
-                </option>
-              </select>
+            <input class="input" type="number" formControlName="minimalStock" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Order Amount</label>
+          <div class="control">
+            <input class="input" type="number" formControlName="orderAmount" required>
+          </div>
+        </div>
+<!--  -->
+        <div class="field">
+          <div class="controls-container">
+            <div class="control">
+              <label class="label">Product Type</label>
+              <div class="select">
+                <select formControlName="type" required>
+                  <option value="" disabled>Select a type</option>
+                  <option *ngFor="let productType of productTypes" [value]="productType">
+                    {{ productType }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="control">
+              <label class="label">Supplier</label>
+              <div class="select">
+                <select formControlName="supplier" required>
+                  <option value="" disabled>Select a supplier</option>
+                  <option *ngFor="let supplier of suppliers" [value]="supplier.id">
+                    {{ supplier.name }}
+                  </option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
+        
+
+        
 
         <div class="field">
           <label class="label">Price (in RSD)</label>

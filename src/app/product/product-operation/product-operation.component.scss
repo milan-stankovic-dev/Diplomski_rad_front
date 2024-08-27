@@ -5,3 +5,15 @@
     padding: 25px;
     background-image: linear-gradient(to bottom, #004d00, #006600);
   }
+
+  .controls-container {
+    display: flex;
+  }
+
+  .control {
+    flex: 1;
+  }
+
+  .select select {
+    width: 100%;
+  }
