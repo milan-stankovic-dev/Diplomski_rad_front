@@ -36,7 +36,7 @@ export class ProductUpdateComponent implements OnInit, OnChanges {
       productName: [this.editedProduct.productName, [Validators.required]],
       weight: [this.editedProduct.weight, [Validators.required, Validators.min(1)]],
       fragile: [this.editedProduct.fragile, [Validators.required]],
-      amount: [this.editedProduct.amount, [Validators.required, Validators.min(0)]],
+      amount: [this.editedProduct.currentStock, [Validators.required, Validators.min(0)]],
       type: [this.editedProduct.type, [Validators.required]],
       price: [this.editedProduct.price, [Validators.required, Validators.min(1)]],
     });
@@ -51,7 +51,7 @@ export class ProductUpdateComponent implements OnInit, OnChanges {
       this.editedProduct.fragile = value;
     });
     this.insertForm.get('amount').valueChanges.subscribe((value) => {
-      this.editedProduct.amount = value;
+      this.editedProduct.currentStock = value;
     });
     this.insertForm.get('type').valueChanges.subscribe((value) => {
       this.editedProduct.type = value;

@@ -19,21 +19,25 @@
       <th>Product Name</th>
       <th>Weight</th>
       <th>Fragile</th>
-      <th>Amount</th>
+      <th>Current Stock</th>
+      <th>Minimal Stock</th>
       <th>Product Type</th>
       <th>Price</th>
+      <th>Supplier</th>
     </tr>
   </thead>
   <tbody>
     <tr [style.border]="selectedProduct===product ? '5px solid #2e7d32' : 'none'"
      *ngFor="let product of filteredProducts; let i = index" (click) = "selectProduct(product)">
-      <td>{{ product.id }}</td>
-      <td>{{ product.productName }}</td>
-      <td>{{ product.weight }}</td>
-      <td>{{ product.fragile }}</td>
-      <td>{{ product.amount }}</td>
-      <td>{{ product.type }}</td>
-      <td>{{ product.price | number:'1.2-2' }} RSD</td>
+      <td>{{ product?.id }}</td>
+      <td>{{ product?.productName }}</td>
+      <td>{{ product?.weight }}</td>
+      <td>{{ product?.fragile }}</td>
+      <td>{{ product?.currentStock }}</td>
+      <td>{{ product?.minimalStock }}</td>
+      <td>{{ product?.type }}</td>
+      <td>{{ product?.price | number:'1.2-2' }} RSD</td>
+      <td>{{ product?.supplier?.name }}</td>
 
     </tr>
   </tbody>
@@ -81,9 +85,12 @@
   productName: '',
   weight: undefined,
   fragile: false,
-  amount: undefined,
+  currentStock: undefined,
+  minimalStock: undefined,
+  orderAmount: undefined,
   type: '',
-  price: undefined
+  price: undefined,
+  supplier: undefined
 }"
 [title]="'Insert Product'"
 [buttonText]="'Insert'"

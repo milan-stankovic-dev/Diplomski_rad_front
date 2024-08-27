@@ -96,7 +96,7 @@ export class ReportCreateComponent implements OnInit{
 
       for(const item of newReport.reportItems){
         totalGrossAvailableCapacity+= item.totalAvailableCapacity
-        totalGrossUsedCapacity+= item.product.amount
+        totalGrossUsedCapacity+= item.product.currentStock
       }
       
       return Number((100  - (100 * totalGrossUsedCapacity)/totalGrossAvailableCapacity).toFixed(2))
@@ -117,7 +117,7 @@ export class ReportCreateComponent implements OnInit{
         return report
     }
   calcTotalAvailableCapacityForProduct(product: Product, capacity: number): number {
-      return 100 - (100 * product.amount/capacity)
+      return 100 - (100 * product.currentStock/capacity)
   } 
 
   openCapacityUpdateModal():void{
@@ -126,7 +126,7 @@ export class ReportCreateComponent implements OnInit{
 
   commitToGlobalChangeInCapacity(value: number){
     for(const item of this.newReport.reportItems){
-      if(item.product.amount>value){
+      if(item.product.currentStock>value){
         // alert("Given capacity too low.")
         this.alterMessageModal("Given capacity too low.")
         return;
@@ -153,7 +153,7 @@ export class ReportCreateComponent implements OnInit{
   }
 
   commitToSingleCapChange(itemCapacity: number): void{
-    if(itemCapacity < this.selectedItem.product.amount){
+    if(itemCapacity < this.selectedItem.product.currentStock){
       return
     }
     this.selectedItem.totalAvailableCapacity = itemCapacity
