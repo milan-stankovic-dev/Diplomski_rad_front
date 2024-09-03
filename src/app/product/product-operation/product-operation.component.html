@@ -3,19 +3,19 @@
   <div class="modal-content has-background-white py-5 px-5">
     <div class="container">
       <h1 class="title">{{ title }}</h1>
-      <form [formGroup]="insertForm">
+      <form #productForm="ngForm" (ngSubmit)="submitProduct(productForm)">
 
         <div class="field">
           <label class="label">Product Name</label>
           <div class="control">
-            <input class="input" type="text" formControlName="productName" required>
+            <input class="input" type="text" name="productName" [(ngModel)]="editedProduct.productName" required>
           </div>
         </div>
 
         <div class="field">
           <label class="label">Weight (g)</label>
           <div class="control">
-            <input class="input" type="number" formControlName="weight" required>
+            <input class="input" type="number" name="weight" [(ngModel)]="editedProduct.weight" required>
           </div>
         </div>
 
@@ -23,10 +23,10 @@
           <label class="label">Fragile</label>
           <div class="control">
             <div class="select">
-              <select formControlName="fragile" required>
-                <option value="" disabled [selected]="buttonText==='Insert'">Select an option</option>
-                <option value=true>True</option>
-                <option value=false>False</option>
+              <select name="fragile" [(ngModel)]="editedProduct.fragile" required>
+                <option value="" disabled>Select an option</option>
+                <option [value]="true">True</option>
+                <option [value]="false">False</option>
               </select>
             </div>
           </div>
@@ -35,30 +35,30 @@
         <div class="field">
           <label class="label">Current Stock</label>
           <div class="control">
-            <input class="input" type="number" formControlName="amount" required>
+            <input class="input" type="number" name="currentStock" [(ngModel)]="editedProduct.currentStock" required>
           </div>
         </div>
 
         <div class="field">
           <label class="label">Minimal Stock</label>
           <div class="control">
-            <input class="input" type="number" formControlName="minimalStock" required>
+            <input class="input" type="number" name="minimalStock" [(ngModel)]="editedProduct.minimalStock" required>
           </div>
         </div>
 
         <div class="field">
           <label class="label">Order Amount</label>
           <div class="control">
-            <input class="input" type="number" formControlName="orderAmount" required>
+            <input class="input" type="number" name="orderAmount" [(ngModel)]="editedProduct.orderAmount" required>
           </div>
         </div>
-<!--  -->
+
         <div class="field">
           <div class="controls-container">
             <div class="control">
               <label class="label">Product Type</label>
               <div class="select">
-                <select formControlName="type" required>
+                <select name="type" [(ngModel)]="editedProduct.type" required>
                   <option value="" disabled>Select a type</option>
                   <option *ngFor="let productType of productTypes" [value]="productType">
                     {{ productType }}
@@ -69,7 +69,7 @@
             <div class="control">
               <label class="label">Supplier</label>
               <div class="select">
-                <select formControlName="supplier" required>
+                <select name="supplier" [(ngModel)]="editedProduct.supplierId" required>
                   <option value="" disabled>Select a supplier</option>
                   <option *ngFor="let supplier of suppliers" [value]="supplier.id">
                     {{ supplier.name }}
@@ -79,23 +79,20 @@
             </div>
           </div>
         </div>
-        
-
-        
 
         <div class="field">
           <label class="label">Price (in RSD)</label>
           <div class="control">
-            <input class="input" type="number" formControlName="price" required>
+            <input class="input" type="number" name="price" [(ngModel)]="editedProduct.price" required>
           </div>
         </div>
 
         <div class="field is-grouped" style="text-align: center;">
           <div class="control">
-            <button class="button is-warning" (click)="alterModal()">Cancel</button>
+            <button class="button is-warning" type="button" (click)="alterModal()">Cancel</button>
           </div>
           <div class="control">
-            <button class="button is-success" (click)="submitProduct()" [disabled]="insertForm.invalid">
+            <button class="button is-success" type="submit">
               {{ buttonText }}
             </button>
           </div>

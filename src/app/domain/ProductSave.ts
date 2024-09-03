@@ -1,6 +1,5 @@
-import { Partner } from "./Partner"
 
-export interface Product{
+export interface ProductSave{
     id : number
     productName : string
     weight : number
@@ -10,6 +9,6 @@ export interface Product{
     orderAmount: number
     type : string
     price : number
-    supplier: Partner
+    supplierId: number
     code: string
 }

@@ -24,6 +24,7 @@
       <th>Product Type</th>
       <th>Price</th>
       <th>Supplier</th>
+      <th>Code</th>
     </tr>
   </thead>
   <tbody>
@@ -38,7 +39,7 @@
       <td>{{ product?.type }}</td>
       <td>{{ product?.price | number:'1.2-2' }} RSD</td>
       <td>{{ product?.supplier?.name }}</td>
-
+      <td>{{ product?.code }}</td>
     </tr>
   </tbody>
 </table>
@@ -90,7 +91,8 @@
   orderAmount: undefined,
   type: '',
   price: undefined,
-  supplier: undefined
+  supplier: undefined,
+  code: ''
 }"
 [title]="'Insert Product'"
 [buttonText]="'Insert'"

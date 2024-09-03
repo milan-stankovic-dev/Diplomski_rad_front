@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { Product } from '../domain/Product'; 
+import { ProductSave } from '../domain/ProductSave';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,8 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.apiUrl}/all/named/${name}`)
   }
 
-  insertProduct(product: Product):Observable<Product>{
-    return this.http.post<Product>(`${this.apiUrl}`, product)
+  insertProduct(product: ProductSave):Observable<ProductSave>{
+    return this.http.post<ProductSave>(`${this.apiUrl}`, product)
   }
 
   deleteProduct(id: number | null):Observable<any>{
@@ -29,6 +30,8 @@ export class ProductService {
   }
 
   updateProduct(product: Product | null) {
+    console.log("CALLED ON UPDATE PRODUCT IN SERVICE:");
+    console.log("URL", `${this.apiUrl}/update/${product?.id}`)
     return this.http.put<Product>(`${this.apiUrl}/update/${product?.id}`, product)
   }
 }
